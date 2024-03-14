@@ -1,38 +1,52 @@
-.App {
-  text-align: center;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.logoText {
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-style: italic;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.searchBar {
+  width: 600px;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.profileHover
+{
+  display: none;
+}
+.profileContainer:hover .dropdownArrow
+{
+  transform: rotate(-180deg);
+}
+.profileContainer:hover .profileHover
+{
+  display: block;
+}
+.profileHover:hover
+{
+  display: block;
+}
+@media (max-width:1024px) {
+  .searchBar {
+    width: 384px;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media (max-width:768px) {
+  .search_barContainer
+  {
+    position: absolute;
+    top: 4rem;
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    left: 0;
   }
-  to {
-    transform: rotate(360deg);
+
+  .searchBar {
+    width: 90%;
   }
 }
