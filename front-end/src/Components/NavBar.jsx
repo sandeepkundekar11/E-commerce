@@ -9,7 +9,7 @@ const Navbar = () => {
                     <h1 className="text-xl text-white font-bold">E-Shop</h1>
                     <p className="text-sm  -mt-2 text-white">Explore</p>
                 </div>
-                <div className="search_barContainer md:bg-transparent bg-blue-700 ">
+                <div className="search_barContainer bg-blue-700 ">
                     <div className="searchBar flex md:ml-4 ml-0 bg-white">
                         <input type="text" className="lg:w-11/12 w-4/5 outline-none  pl-2 h-9 placeholder:text-base" placeholder="Search for products,brands and more.." name="" id="" />
                         <img className="searchIcon lg:w-1/12 w-20 float-end lg:px-3 px-5 py-1 h-9" src={SearchImg} alt="" />
