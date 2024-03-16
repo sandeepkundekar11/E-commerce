@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  padding: 0;
+  margin: 0;
+}
 .logoText {
   font-family: "Kanit", sans-serif;
   font-weight: 300;
@@ -11,31 +15,27 @@
 .searchBar {
   width: 600px;
 }
-.profileHover
-{
+.profileHover {
   display: none;
 }
-.profileContainer:hover .dropdownArrow
-{
+.profileContainer:hover .dropdownArrow {
   transform: rotate(-180deg);
 }
-.profileContainer:hover .profileHover
-{
+.profileContainer:hover .profileHover {
   display: block;
 }
-.profileHover:hover
-{
+.profileHover:hover {
   display: block;
 }
-@media (max-width:1024px) {
+
+@media (max-width: 1024px) {
   .searchBar {
     width: 384px;
   }
 }
 
-@media (max-width:768px) {
-  .search_barContainer
-  {
+@media (max-width: 768px) {
+  .search_barContainer {
     position: absolute;
     top: 4rem;
     height: 4rem;
@@ -49,4 +49,12 @@
   .searchBar {
     width: 90%;
   }
+}
+
+.morePopup {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.productHome {
+  max-width: 1200px;
+  margin: auto;
 }
