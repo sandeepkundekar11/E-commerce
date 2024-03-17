@@ -6,6 +6,7 @@
   padding: 0;
   margin: 0;
 }
+
 .logoText {
   font-family: "Kanit", sans-serif;
   font-weight: 300;
@@ -15,15 +16,19 @@
 .searchBar {
   width: 600px;
 }
+
 .profileHover {
   display: none;
 }
+
 .profileContainer:hover .dropdownArrow {
   transform: rotate(-180deg);
 }
+
 .profileContainer:hover .profileHover {
   display: block;
 }
+
 .profileHover:hover {
   display: block;
 }
@@ -54,7 +59,28 @@
 .morePopup {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
+
 .productHome {
   max-width: 1200px;
   margin: auto;
+}
+
+.homePage {
+  width: calc(100vw - 260px);
+  padding-top: 4.2rem;
+  float: right;
+}
+
+.productCard .cardHover {
+  display: none;
+  transition: all .5s;
+  transform: translateY(1px);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.productCard:hover .cardHover {
+  transition: all .5s;
+  transform: translateY(20px);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  display: block;
 }

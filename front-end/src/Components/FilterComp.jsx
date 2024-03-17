@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import Search from "../Images/E-Search.png";
 import dropdown from "../Images/E-b-dropdown.png";
-const FilterComp = ({ Title, FilterArr = [] }) => {
+const FilterComp = ({ Title, FilterArr = [],filter=[],onHandleChange }) => {
   const [SearchedFilter, setSerchedFilter] = useState("");
   const [PopupSearch, setPoupSearch] = useState("");
   const collapseRef = useRef(null);
@@ -35,6 +35,7 @@ const FilterComp = ({ Title, FilterArr = [] }) => {
               className="w-full pt-2 h-0  m-auto overflow-hidden ease-linear transition-all duration-300"
               ref={collapseRef}
             >
+              {/* search box */}
               <div className="FilterSearch flex items-center justify-center bg-white border-b w-11/12 border-gray-300 mb-3 ">
                 <img className="w-4 h-4 p-0 mr-1" src={Search} alt="" />
                 <input
@@ -57,7 +58,12 @@ const FilterComp = ({ Title, FilterArr = [] }) => {
                         type="checkbox"
                         className="w-4 h-4 mr-2"
                         name=""
+                        checked={filter.includes(ele)}
                         id=""
+                        onChange={()=>
+                        {
+                          onHandleChange(ele)
+                        }}
                       />
                       <div className="flex">{ele}</div>
                     </div>
@@ -73,9 +79,10 @@ const FilterComp = ({ Title, FilterArr = [] }) => {
                       >
                         {FilterArr.length - 6} More
                       </p>
-                      {/* search Popup */}
+                      {/* show extra items popup*/}
                       {showPopup && (
-                        <div className="morePopup w-64 h-96  absolute bg-white left-60 -top-10 shadow-2xl p-3 overflow-hidden">
+                        <div className="morePopup w-64 h-96  absolute bg-white left-60 -top-44 shadow-2xl p-3 overflow-hidden">
+                          {/* search box for the extra popup */}
                           <div className="FilterSearch flex items-center justify-center bg-white border-b w-11/12 border-gray-300 ">
                             <img
                               className="w-4 h-4 p-0 mr-1"
@@ -92,6 +99,7 @@ const FilterComp = ({ Title, FilterArr = [] }) => {
                               placeholder={`Search ${Title.toLowerCase()}`}
                             />
                           </div>
+                          {/* filter for the extra popup */}
                           <div className="overflow-scroll h-full">
                             {FilterArr.filter((ele) => {
                               return ele.toLowerCase().includes(PopupSearch);
@@ -105,7 +113,12 @@ const FilterComp = ({ Title, FilterArr = [] }) => {
                                     type="checkbox"
                                     className="w-4 h-4 mr-2"
                                     name=""
+                                    checked={filter.includes(ele)}
                                     id=""
+                                    onChange={()=>
+                                    {
+                                      onHandleChange(ele)
+                                    }}
                                   />
                                   <div className="flex">{ele}</div>
                                 </div>
@@ -129,7 +142,12 @@ const FilterComp = ({ Title, FilterArr = [] }) => {
                     type="checkbox"
                     className="w-4 h-4 mr-2"
                     name=""
+                    checked={filter.includes(ele)}
                     id=""
+                    onChange={()=>
+                    {
+                      onHandleChange(ele)
+                    }}
                   />
                   <div className="flex">
                     <div className="mr-2">{ele.start}₹</div>
