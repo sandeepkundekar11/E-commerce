@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Banner from "../Images/FilterBanner.jpg";
 import cancel from "../Images/E-cancel.png";
+import Banner from "../Images/FilterBanner.jpg";
 import {
   ClearAllFilter,
   ClearFilter,
