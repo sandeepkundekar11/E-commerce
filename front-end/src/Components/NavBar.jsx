@@ -37,10 +37,10 @@ const Navbar = () => {
             <div className="profileHover w-28 transition-all duration-200  md:h-32 h-20 bg-white shadow-2xl absolute top-8 -left-2"></div>
           </li>
           <li className="flex items-center relative ml-4">
-            <p className="CardNumbers absolute -top-2.5 flex justify-center items-center rounded-full w-5 h-5 bg-yellow-400 left-4">
+            <p className="CardNumbers absolute -top-3 flex justify-center items-center rounded-full w-5 h-5 bg-yellow-400 left-4">
               1
             </p>
-            <img className="w-11 h-9" src={card} alt="" />
+            <img className="w-10 h-9" src={card} alt="" />
             <p className="font-medium  sm:text-lg text-white">Card</p>
           </li>
         </ul>

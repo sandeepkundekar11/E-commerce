@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import Search from "../Images/E-Search.png";
 import dropdown from "../Images/E-b-dropdown.png";
-const FilterComp = ({ Title, FilterArr = [],filter=[],onHandleChange }) => {
+const FilterComp = ({ Title, FilterArr = [], filter = [], onHandleChange }) => {
   const [SearchedFilter, setSerchedFilter] = useState("");
   const [PopupSearch, setPoupSearch] = useState("");
   const collapseRef = useRef(null);
@@ -60,9 +60,8 @@ const FilterComp = ({ Title, FilterArr = [],filter=[],onHandleChange }) => {
                         name=""
                         checked={filter.includes(ele)}
                         id=""
-                        onChange={()=>
-                        {
-                          onHandleChange(ele)
+                        onChange={() => {
+                          onHandleChange(ele);
                         }}
                       />
                       <div className="flex">{ele}</div>
@@ -81,7 +80,7 @@ const FilterComp = ({ Title, FilterArr = [],filter=[],onHandleChange }) => {
                       </p>
                       {/* show extra items popup*/}
                       {showPopup && (
-                        <div className="morePopup w-64 h-96  absolute bg-white left-60 -top-44 shadow-2xl p-3 overflow-hidden">
+                        <div className="morePopup w-64 h-96 z-30  absolute bg-white left-60 -top-44 shadow-2xl p-3 overflow-hidden">
                           {/* search box for the extra popup */}
                           <div className="FilterSearch flex items-center justify-center bg-white border-b w-11/12 border-gray-300 ">
                             <img
@@ -115,9 +114,8 @@ const FilterComp = ({ Title, FilterArr = [],filter=[],onHandleChange }) => {
                                     name=""
                                     checked={filter.includes(ele)}
                                     id=""
-                                    onChange={()=>
-                                    {
-                                      onHandleChange(ele)
+                                    onChange={() => {
+                                      onHandleChange(ele);
                                     }}
                                   />
                                   <div className="flex">{ele}</div>
@@ -144,9 +142,8 @@ const FilterComp = ({ Title, FilterArr = [],filter=[],onHandleChange }) => {
                     name=""
                     checked={filter.includes(ele)}
                     id=""
-                    onChange={()=>
-                    {
-                      onHandleChange(ele)
+                    onChange={() => {
+                      onHandleChange(ele);
                     }}
                   />
                   <div className="flex">
