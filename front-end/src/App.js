@@ -1,14 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./Components/Home";
 import Login from "./Components/Login";
+import EditProfile from "./Components/Profile/EditProfile";
 import SignUp from "./Components/SignUp";
-import EditProfile from "./Components/EditProfile";
-import Navbar from "./Components/NavBar";
 const App = () => {
   return (
     <>
       <BrowserRouter>
-        <Navbar />
         <Routes>
           <Route path="/" element={<SignUp />} />
           <Route path="/home" element={<Home />} />

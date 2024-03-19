@@ -15,7 +15,7 @@ const Home = () => {
   return (
     <div className="w-full h-full ">
       <SideFilter />
-
+      <Navbar />
       <div className="homePage flex flex-wrap">
         {Products.map((ele) => {
           return (
