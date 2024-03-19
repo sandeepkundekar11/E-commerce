@@ -1,3 +1,6 @@
+import { NavLink } from "react-router-dom";
+import LogoutImg from "../Images/E-Logout.png";
+import E_profile from "../Images/E-Profile.png";
 import SearchImg from "../Images/E-Search.png";
 import Dropdown from "../Images/E-dropdown.png";
 import card from "../Images/Shoping_card.png";
@@ -5,10 +8,10 @@ const Navbar = () => {
   return (
     <div className="w-screen bg-blue-700 flex h-16 items-center px-4 fixed top-0 z-40">
       <div className="w-11/12 flex m-auto items-center">
-        <div className="logoText w-56 ">
+        <NavLink to="/home" className="logoText w-56 ">
           <h1 className="text-xl text-white font-bold">E-Shop</h1>
           <p className="text-sm  -mt-2 text-white">Explore</p>
-        </div>
+        </NavLink>
         <div className="search_barContainer bg-blue-700 ">
           <div className="searchBar flex md:ml-4 ml-0 bg-white">
             <input
@@ -34,7 +37,18 @@ const Navbar = () => {
               alt=""
             />
 
-            <div className="profileHover w-28 transition-all duration-200  md:h-32 h-20 bg-white shadow-2xl absolute top-8 -left-2"></div>
+            <div className="profileHover w-36 transition-all duration-200  md:h-32 h-auto bg-white shadow-2xl absolute top-8 -left-2">
+              <ul className="w-full">
+                <NavLink to="/profile" className="flex items-center h-12 hover:bg-slate-100 p-1 mt-1 cursor-pointer">
+                  <img className="w-5 h-5" src={E_profile} alt="" />
+                  <p className="text-base ml-2 font-semibold">My Profile</p>
+                </NavLink>
+                <li className="flex items-center h-12 hover:bg-slate-100 p-1 mt-1 cursor-pointer">
+                  <img className="w-5 h-5" src={LogoutImg} alt="" />
+                  <p className="text-base ml-2">Log Out</p>
+                </li>
+              </ul>
+            </div>
           </li>
           <li className="flex items-center relative ml-4">
             <p className="CardNumbers absolute -top-3 flex justify-center items-center rounded-full w-5 h-5 bg-yellow-400 left-4">

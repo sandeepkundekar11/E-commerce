@@ -4,7 +4,7 @@ const ProfileComponent = () => {
       {/* <!-- Persanol Information start --> */}
       <div className="PerosnalInfo">
         <div className="personalDetailHead flex items-end">
-          <h1 className="text-2xl font-medium text-gray-600">
+          <h1 className="text-xl font-medium text-gray-600">
             Personal Information
           </h1>
           <button className="ml-6 text-lg font-medium text-blue-600">
@@ -56,7 +56,7 @@ const ProfileComponent = () => {
       {/* <!-- Email Address Start --> */}
       <div className="EmailAddressChange mt-6">
         <div className="EmailHead mt-4 flex items-end">
-          <h1 className="text-2xl font-medium text-gray-600">Email Address</h1>
+          <h1 className="text-xl font-medium text-gray-600">Email Address</h1>
           <button className="ml-6 text-lg font-medium text-blue-600">
             Edit
           </button>
@@ -72,7 +72,7 @@ const ProfileComponent = () => {
       {/* <!-- password start --> */}
       <div className="PassowrdChange mt-6">
         <div className="EmailHead mt-4 flex items-end">
-          <h1 className="text-2xl font-medium text-gray-600">Mobile Number</h1>
+          <h1 className="text-xl font-medium text-gray-600">Mobile Number</h1>
           <button className="ml-6 text-lg font-medium text-blue-600">
             Edit
           </button>
