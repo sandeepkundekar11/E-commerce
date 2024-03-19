@@ -14,7 +14,6 @@ const Home = () => {
   }, [dispatch]);
   return (
     <div className="w-full h-full ">
-      <Navbar />
       <SideFilter />
 
       <div className="homePage flex flex-wrap">
