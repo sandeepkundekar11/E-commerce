@@ -1,9 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ProductsCheckoutComp from "./Components/AddToCard/ProuctsCheckoutComp";
 import Home from "./Components/Home";
 import Login from "./Components/Login";
+import ProductInfo from "./Components/ProductInfo";
 import EditProfile from "./Components/Profile/EditProfile";
 import SignUp from "./Components/SignUp";
-import ProductsCheckoutComp from "./Components/AddToCard/ProuctsCheckoutComp";
 const App = () => {
   return (
     <>
@@ -14,6 +15,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<EditProfile />} />
           <Route path="/checkout" element={<ProductsCheckoutComp />} />
+          <Route path="/productInfo" element={<ProductInfo/>}/>
         </Routes>
       </BrowserRouter>
     </>
