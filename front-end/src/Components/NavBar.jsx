@@ -39,7 +39,10 @@ const Navbar = () => {
 
             <div className="profileHover w-36 transition-all duration-200  md:h-32 h-auto bg-white shadow-2xl absolute top-8 -left-2">
               <ul className="w-full">
-                <NavLink to="/profile" className="flex items-center h-12 hover:bg-slate-100 p-1 mt-1 cursor-pointer">
+                <NavLink
+                  to="/profile"
+                  className="flex items-center h-12 hover:bg-slate-100 p-1 mt-1 cursor-pointer"
+                >
                   <img className="w-5 h-5" src={E_profile} alt="" />
                   <p className="text-base ml-2 font-semibold">My Profile</p>
                 </NavLink>
@@ -50,13 +53,13 @@ const Navbar = () => {
               </ul>
             </div>
           </li>
-          <li className="flex items-center relative ml-4">
+          <NavLink className="flex items-center relative ml-4" to="/checkout">
             <p className="CardNumbers absolute -top-3 flex justify-center items-center rounded-full w-5 h-5 bg-yellow-400 left-4">
               1
             </p>
             <img className="w-10 h-9" src={card} alt="" />
             <p className="font-medium  sm:text-lg text-white">Card</p>
-          </li>
+          </NavLink>
         </ul>
       </div>
     </div>

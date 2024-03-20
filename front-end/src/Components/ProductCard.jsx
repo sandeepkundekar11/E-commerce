@@ -1,11 +1,11 @@
 import CardImg from "../Images/Shoping_card.png";
 const ProductCard = ({ ProductSrc, ProductName, Price, discount }) => {
   return (
-    <div className="relative productCard  m-1 mt-5 h-80 w-72 cursor-pointer rounded-md border transition-all duration-300 hover:scale-105 bg-white  hover:shadow-lg">
+    <div className="relative productCard group overflow-hidden  m-1 mt-5 h-80 max-w-72 min-w-52 cursor-pointer rounded-md border transition-all duration-300 hover:scale-105 bg-white  hover:shadow-lg">
       <div className="img h-3/4">
         <img className="h-full w-full" src={ProductSrc} alt="" />
       </div>
-      <div className="bg-slate-00 h-1/4 px-2">
+      <div className="bg-slate-00 h-1/4 px-2 bg-white transition-all duration-200 group-hover:-translate-y-6">
         <h1 className="title font-semibold">{ProductName}</h1>
         <p className="text-sm">MacBook Pro 2021 with mini...</p>
         <div className="mt-1 flex items-center text-sm">

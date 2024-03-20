@@ -3,6 +3,7 @@ import Home from "./Components/Home";
 import Login from "./Components/Login";
 import EditProfile from "./Components/Profile/EditProfile";
 import SignUp from "./Components/SignUp";
+import ProductsCheckoutComp from "./Components/AddToCard/ProuctsCheckoutComp";
 const App = () => {
   return (
     <>
@@ -12,6 +13,7 @@ const App = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<EditProfile />} />
+          <Route path="/checkout" element={<ProductsCheckoutComp />} />
         </Routes>
       </BrowserRouter>
     </>
