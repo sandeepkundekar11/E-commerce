@@ -1,6 +1,6 @@
 const ProductCard = ({ ProductSrc, ProductName, Price, discount,ProductClick }) => {
   return (
-    <div className="relative productCard group overflow-hidden  m-2 mt-5 h-80 max-w-72 min-w-52 cursor-pointer rounded-md border transition-all duration-300 hover:scale-105 bg-white  hover:shadow-lg" onClick={(e)=>{
+    <div className="relative productCard group overflow-hidden  m-2 mt-2 h-72 max-w-72 min-w-52 cursor-pointer rounded-md border transition-all duration-300 hover:scale-105 bg-white  hover:shadow-lg" onClick={(e)=>{
       e.stopPropagation()
       ProductClick()
     }}>

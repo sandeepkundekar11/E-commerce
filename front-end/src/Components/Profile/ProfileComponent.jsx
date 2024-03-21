@@ -66,6 +66,7 @@ const ProfileComponent = () => {
           className="mt-5 h-11 w-9/12 bg-blue-50 pl-3 outline-none md:w-2/5"
           name=""
           id=""
+          placeholder="Enter your email"
         />
       </div>
       {/* <!-- Email Address Ends --> */}
