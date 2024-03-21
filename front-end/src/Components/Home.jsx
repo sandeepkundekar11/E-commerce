@@ -10,20 +10,23 @@ import SideFilter from "./SideFilter";
 const Home = () => {
   const Products = useSelector((state) => state.products.AllProducts);
   const dispatch = useDispatch();
-  const Navigate = useNavigate()
-  const [PaginationArr, setPaginationArr] = useState([])
+  const Navigate = useNavigate();
+  const [PaginationArr, setPaginationArr] = useState([]);
   const [Pagination, setPagination] = useState({
-    start: 1,
-    end: 10
-  })
+    start: 0,
+    end: 10,
+  });
   useEffect(() => {
     dispatch(GetAllProducts); // getting all the products based on categories,brand and ,price
-    let Totalpages = Math.floor(Products.length / 10)
-    let arr = []
-    for (let i = 1; i <= Totalpages; i++) {
-      arr.push(i)
+    let Totalpages = Math.floor(Products.length / 10);
+    let arr = [];
+    for (let i = 0; i <= Totalpages; i++) {
+      arr.push({
+        tab: i,
+        color: i === 0 ? "bg-blue-500" : "transperent",
+      });
     }
-    setPaginationArr(arr)
+    setPaginationArr(arr);
   }, [Products.length, dispatch]);
   return (
     <div className="w-full h-full ">
@@ -31,10 +34,11 @@ const Home = () => {
       <Navbar />
       <div className="homePage grid xl:grid-cols-5 lg:grid-cols-3 grid-cols-2">
         {Products.map((ele, index) => {
-          let eleIndex = index + 1
-          if (eleIndex >= Pagination.start && eleIndex <= Pagination.end) {
+          let eleIndex = index + 1;
+          if (eleIndex >= Pagination.start && eleIndex < Pagination.end) {
             return (
               <ProductCard
+                key={index}
                 ProductClick={() => Navigate("/productInfo")}
                 ProductSrc={ele.thumbnail}
                 ProductName={ele.title}
@@ -45,7 +49,48 @@ const Home = () => {
           }
         })}
       </div>
-      <PaginationComp PaginationArr={PaginationArr}/>
+
+      {/* pagination Container */}
+      <PaginationComp
+        PaginationArr={PaginationArr}
+        nextPage={() => {
+          setPagination({
+            start: Pagination.start + 10,
+            end: Pagination.end + 10,
+          });
+          let page = PaginationArr.find((ele) => {
+            return ele.tab * 10 === Pagination.end;
+          });
+          console.log(page);
+          // setting the pagination color Dynamically
+          setPaginationArr((arr) => {
+            return arr.map((ele) => {
+              if (ele?.tab === page?.tab) {
+                return { ...ele, color: "bg-blue-500" };
+              } else {
+                return { ...ele, color: "bg-white" };
+              }
+            });
+          });
+        }}
+        onTabClick={(ele) => {
+          setPagination({
+            start: ele.tab * 10,
+            end: ele.tab * 10 + 10,
+          });
+
+          // setting the color of the tabs
+          setPaginationArr((tabs) => {
+            return tabs.map((obj) => {
+              if (obj.tab === ele.tab) {
+                return { ...obj, color: "bg-blue-500" };
+              } else {
+                return { ...obj, color: "white" };
+              }
+            });
+          });
+        }}
+      />
     </div>
   );
 };
