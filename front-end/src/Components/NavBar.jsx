@@ -1,10 +1,15 @@
-import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
 import LogoutImg from "../Images/E-Logout.png";
 import E_profile from "../Images/E-Profile.png";
 import SearchImg from "../Images/E-Search.png";
 import Dropdown from "../Images/E-dropdown.png";
 import card from "../Images/Shoping_card.png";
 const Navbar = () => {
+  const products = useSelector((state) => state.products.AllProducts)
+  const Navigate = useNavigate()
+  const [SearchedProduct, setSearchedProduct] = useState("")
   return (
     <div className="w-screen bg-blue-700 flex h-16 items-center px-4 fixed top-0 z-40">
       <div className="w-11/12 flex m-auto items-center">
@@ -12,7 +17,7 @@ const Navbar = () => {
           <h1 className="text-xl text-white font-bold">E-Shop</h1>
           <p className="text-sm  -mt-2 text-white">Explore</p>
         </NavLink>
-        <div className="search_barContainer bg-blue-700 ">
+        <div className="search_barContainer bg-blue-700 relative ">
           <div className="searchBar flex md:ml-4 ml-0 bg-white">
             <input
               type="text"
@@ -20,6 +25,9 @@ const Navbar = () => {
               placeholder="Search for products,brands and more.."
               name=""
               id=""
+              onChange={(e) => {
+                setSearchedProduct(e.target.value)
+              }}
             />
             <img
               className="searchIcon lg:w-1/12 w-20 float-end lg:px-3 px-5 py-1 h-9"
@@ -27,6 +35,28 @@ const Navbar = () => {
               alt=""
             />
           </div>
+
+          {
+            SearchedProduct.length > 0 &&
+            <div className="absolute space-y-2 searchProductDropdown pt-2  w-11/12 ml-4 px-1 bg-white shadow-2xl drop-shadow-2xl overflow-scroll min-h-0 max-h-80 ">
+              {
+                // adding the searched product dropdown
+                products.filter((ele) => {
+                  return ele.title.toLowerCase().includes(SearchedProduct) || ele.category.toLowerCase().includes(SearchedProduct)
+                }).map((ele) => {
+                  return <div className="w-full flex justify-start items-center h-12 cursor-pointer hover:bg-slate-200" onClick={() => {
+                    Navigate("/productInfo")
+                  }}>
+                    <img className="h-4/5 w-12" src={ele.thumbnail} alt="" />
+                    <div className="ml-2">
+                      <div className=" pl-5 font-medium">{ele.title}</div>
+                      <div className=" pl-5 text-sm text-blue-500 font-medium -mt-1">{ele.category}</div>
+                    </div>
+                  </div>
+                })
+              }
+            </div>
+          }
         </div>
         <ul className=" flex ml-8 w-96 justify-around">
           <li className=" profileContainer flex items-center  rounded-2x relative transition-all duration-200">

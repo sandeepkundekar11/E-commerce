@@ -12,7 +12,7 @@ const AddAddressComp = ({ onCancel, onSave }) => {
         <input
           class="mt-4 h-12 md:w-80 w-11/12 rounded-lg pl-3 text-lg focus:border-blue-600 outline-none md:ml-6 md:mt-0"
           type="text"
-          placeholder="10-digit moble number"
+          placeholder="10-digit mobile number"
         />
       </div>
       {/* <!-- Address2 --> */}

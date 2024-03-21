@@ -12,6 +12,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const Navigate = useNavigate();
   const [PaginationArr, setPaginationArr] = useState([]);
+  // bellow block we are using for the setting per page product number 
   const [Pagination, setPagination] = useState({
     start: 0,
     end: 10,
@@ -20,7 +21,9 @@ const Home = () => {
     dispatch(GetAllProducts); // getting all the products based on categories,brand and ,price
     let Totalpages = Math.floor(Products.length / 10);
     let arr = [];
-    for (let i = 0; i <= Totalpages; i++) {
+
+    // calculating the total numbers of pages
+    for (let i = 0; i < Totalpages; i++) {
       arr.push({
         tab: i,
         color: i === 0 ? "bg-blue-500" : "transperent",
@@ -32,10 +35,10 @@ const Home = () => {
     <div className="w-full h-full ">
       <SideFilter />
       <Navbar />
-      <div className="homePage grid xl:grid-cols-5 lg:grid-cols-3 grid-cols-2">
+      <div className="homePage  grid xl:grid-cols-5 lg:grid-cols-3 grid-cols-2">
         {Products.map((ele, index) => {
           let eleIndex = index + 1;
-          if (eleIndex >= Pagination.start && eleIndex < Pagination.end) {
+          if (eleIndex > Pagination.start && eleIndex <= Pagination.end) {
             return (
               <ProductCard
                 key={index}
@@ -50,9 +53,30 @@ const Home = () => {
         })}
       </div>
 
+    
       {/* pagination Container */}
       <PaginationComp
         PaginationArr={PaginationArr}
+        prePage={() => {
+          setPagination({
+            start: Pagination.start - 10,
+            end: Pagination.end - 10,
+          });
+          let page = PaginationArr.find((ele) => {
+            return ele.tab * 10 === Pagination.start;
+          });
+          console.log(page);
+          // setting the pagination color Dynamically
+          setPaginationArr((arr) => {
+            return arr.map((ele) => {
+              if (ele?.tab+1 === page?.tab) {
+                return { ...ele, color: "bg-blue-500" };
+              } else {
+                return { ...ele, color: "bg-white" };
+              }
+            });
+          });
+        }}
         nextPage={() => {
           setPagination({
             start: Pagination.start + 10,
@@ -61,7 +85,6 @@ const Home = () => {
           let page = PaginationArr.find((ele) => {
             return ele.tab * 10 === Pagination.end;
           });
-          console.log(page);
           // setting the pagination color Dynamically
           setPaginationArr((arr) => {
             return arr.map((ele) => {
@@ -73,9 +96,11 @@ const Home = () => {
             });
           });
         }}
+
+        // this function will get called on every page button click
         onTabClick={(ele) => {
           setPagination({
-            start: ele.tab * 10,
+            start: ele.tab === 0 ? ele.tab * 10 + 1 : ele.tab * 10,
             end: ele.tab * 10 + 10,
           });
 
@@ -90,6 +115,11 @@ const Home = () => {
             });
           });
         }}
+
+        // hiding the prepage button when our page start is ==0
+        showPrepage={Pagination.end!==10}
+        // hiding the  next page button when our page end is 100
+        shownextpage={Pagination.end!==100}
       />
     </div>
   );
