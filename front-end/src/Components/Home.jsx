@@ -7,12 +7,13 @@ import Navbar from "./NavBar";
 import PaginationComp from "./PaginationComp";
 import ProductCard from "./ProductCard";
 import SideFilter from "./SideFilter";
+import Loader from "./Loader";
 const Home = () => {
   const Products = useSelector((state) => state.products.AllProducts);
   const dispatch = useDispatch();
   const Navigate = useNavigate();
   const [PaginationArr, setPaginationArr] = useState([]);
-  // bellow block we are using for the setting per page product number 
+  // bellow block we are using for the setting per page product number
   const [Pagination, setPagination] = useState({
     start: 0,
     end: 10,
@@ -53,7 +54,6 @@ const Home = () => {
         })}
       </div>
 
-    
       {/* pagination Container */}
       <PaginationComp
         PaginationArr={PaginationArr}
@@ -69,7 +69,7 @@ const Home = () => {
           // setting the pagination color Dynamically
           setPaginationArr((arr) => {
             return arr.map((ele) => {
-              if (ele?.tab+1 === page?.tab) {
+              if (ele?.tab + 1 === page?.tab) {
                 return { ...ele, color: "bg-blue-500" };
               } else {
                 return { ...ele, color: "bg-white" };
@@ -96,7 +96,6 @@ const Home = () => {
             });
           });
         }}
-
         // this function will get called on every page button click
         onTabClick={(ele) => {
           setPagination({
@@ -115,12 +114,14 @@ const Home = () => {
             });
           });
         }}
-
         // hiding the prepage button when our page start is ==0
-        showPrepage={Pagination.end!==10}
+        showPrepage={Pagination.end !== Math.floor(Products.length / 10)}
         // hiding the  next page button when our page end is 100
-        shownextpage={Pagination.end!==100}
+        shownextpage={Pagination.end !== Math.floor(Products.length / 10) * 10}
       />
+
+      {/* Loader */}
+      {/* <Loader /> */}
     </div>
   );
 };

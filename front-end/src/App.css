@@ -79,12 +79,10 @@
     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
-.searchProductDropdown::-webkit-scrollbar
-{
+.searchProductDropdown::-webkit-scrollbar {
   display: none;
 }
-.searchProductDropdown::-webkit-scrollbar-corner
-{
+.searchProductDropdown::-webkit-scrollbar-corner {
   height: 20px;
   width: 20px;
   background-color: black;
@@ -99,13 +97,15 @@
     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
-.Productinfo
-{
+.Productinfo {
   height: 500px;
 }
-@media (max-width:768px) {
-  .Productinfo
-{
-  height:auto;
+@media (max-width: 768px) {
+  .Productinfo {
+    height: auto;
+  }
 }
+.loader {
+  background-color: rgba(128, 128, 128, 0.615);
+  z-index: 100;
 }
