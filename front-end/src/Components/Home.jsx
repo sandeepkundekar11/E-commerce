@@ -7,7 +7,6 @@ import Navbar from "./NavBar";
 import PaginationComp from "./PaginationComp";
 import ProductCard from "./ProductCard";
 import SideFilter from "./SideFilter";
-import Loader from "./Loader";
 const Home = () => {
   const Products = useSelector((state) => state.products.AllProducts);
   const dispatch = useDispatch();
