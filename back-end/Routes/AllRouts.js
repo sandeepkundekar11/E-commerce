@@ -13,6 +13,7 @@ const {
   AddProductCard,
   OrderCount,
   DeleteCard,
+  UserData,
 } = require("../Controller/UserController");
 Route.get("/allproducts", GetProducts);
 Route.post("/signup", Signup);
@@ -26,5 +27,5 @@ Route.put("/deleteAddress", DetateAddress);
 Route.put("/addCard/:id", AddProductCard);
 Route.put("/count", OrderCount);
 Route.put("/deleteCard", DeleteCard);
-
+Route.get("/userInfo/:id",UserData)
 module.exports = Route;

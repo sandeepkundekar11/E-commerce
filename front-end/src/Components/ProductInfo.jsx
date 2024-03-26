@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import AddTocradImg from "../Images/Shoping_card.png";
 import { GetApiProductInfo } from "../Redux/Actions/ProductInfoAction";
 import Loader from "./Loader";
 import Navbar from "./NavBar";
-import AddTocradImg from "../Images/Shoping_card.png";
 import ProductCard from "./ProductCard";
 
 const ProductInfo = () => {
@@ -49,8 +49,8 @@ const ProductInfo = () => {
                 alt=""
               />
               <div className="w-80  h-1/5 flex items-center justify-center ml-4">
-                <button className=" p-4 w-full h-16 rounded-md bg-yellow-500 hover:bg-yellow-400 flex items-center ">
-                  <img className="w-12 h-14" src={AddTocradImg} alt="" />
+                <button className=" p-4 w-full h-12 rounded-md group hover:relative bg-yellow-500 hover:bg-yellow-400 flex items-center ">
+                  <img className="w-12 h-10 group-hover:absolute group-hover:translate-x-60 ease-linear transition-all duration-700" src={AddTocradImg} alt="" />
                   <p className="text-xl font-bold ml-3">ADD TO CARD</p>
                 </button>
               </div>
@@ -110,7 +110,7 @@ const ProductInfo = () => {
                     onMouseOut={() => {
                       setSelectedTempImg(null);
                     }}
-                    class="md:h-40 w-44 transition-all duration-300 hover:scale-110  hover:-translate-y-4 h-24 border hover:border-2 hover:border-blue-700 bg-slate-600"
+                    class=" w-44 transition-all duration-300 hover:scale-110  hover:-translate-y-4 h-28 border hover:border-2 hover:border-blue-700 bg-slate-600"
                   >
                     <img className="w-full h-full" src={img} alt="" />
                   </div>
