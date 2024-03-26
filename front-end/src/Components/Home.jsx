@@ -2,12 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 // import data from "../app.json";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { GetAllProducts } from "../Redux/Actions";
+import { GetAllProducts, GetApiProducts } from "../Redux/Actions/Actions";
+import Loader from "./Loader";
 import Navbar from "./NavBar";
 import PaginationComp from "./PaginationComp";
 import ProductCard from "./ProductCard";
 import SideFilter from "./SideFilter";
 const Home = () => {
+  const { E_Products, ProductLoading, ProductErr } = useSelector((state) => state.Products)
   const Products = useSelector((state) => state.products.AllProducts);
   const dispatch = useDispatch();
   const Navigate = useNavigate();
@@ -17,9 +19,13 @@ const Home = () => {
     start: 0,
     end: 10,
   });
+
   useEffect(() => {
-    dispatch(GetAllProducts); // getting all the products based on categories,brand and ,price
-    let Totalpages = Math.floor(Products.length / 10);
+    dispatch(GetApiProducts())
+  }, [])
+  useEffect(() => {
+    dispatch(GetAllProducts(E_Products)); // getting all the products based on categories,brand and ,price and inside that  i am sending api response
+    let Totalpages = Math.floor(Products?.length / 10)
     let arr = [];
 
     // calculating the total numbers of pages
@@ -30,20 +36,28 @@ const Home = () => {
       });
     }
     setPaginationArr(arr);
-  }, [Products.length, dispatch]);
+  }, [Products?.length, dispatch, E_Products]);
+
+
+  useEffect(() => {
+    let auth = JSON.parse(localStorage.getItem("auth"))
+    if (!auth) {
+      Navigate("/")
+    }
+  }, [])
   return (
     <>
       <div className="w-full h-full ">
         <SideFilter />
         <Navbar />
         <div className="homePage  grid xl:grid-cols-5 lg:grid-cols-3 grid-cols-2">
-          {Products.map((ele, index) => {
+          {Products?.map((ele, index) => {
             let eleIndex = index + 1;
             if (eleIndex > Pagination.start && eleIndex <= Pagination.end) {
               return (
                 <ProductCard
                   key={index}
-                  ProductClick={() => Navigate("/productInfo")}
+                  ProductClick={() => Navigate(`/productInfo/${ele._id}`)}
                   ProductSrc={ele.thumbnail}
                   ProductName={ele.title}
                   Price={ele.price}
@@ -115,14 +129,17 @@ const Home = () => {
             });
           }}
           // hiding the prepage button when our page start is ==0
-          showPrepage={Pagination.end !== Math.floor(Products.length / 10)}
+          showPrepage={Pagination.end !== Math.floor(Products?.length / 10)}
           // hiding the  next page button when our page end is 100
           shownextpage={
-            Pagination.end !== Math.floor(Products.length / 10) * 10
+            Pagination.end !== Math.floor(Products?.length / 10) * 10
           }
         />
 
         {/* Loader */}
+        {
+          ProductLoading && <Loader />
+        }
         {/* <Loader /> */}
       </div>
     </>

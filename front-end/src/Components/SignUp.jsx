@@ -1,13 +1,19 @@
-import { useState } from "react"
-import { NavLink } from "react-router-dom"
-
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { NavLink, useNavigate } from "react-router-dom"
+import { UserSignup } from "../Redux/Actions/JoinUserAction"
+import Loader from "./Loader"
 const SignUp = () => {
+    const Navigate=useNavigate()
+    const Dispatch=useDispatch()
+    const {data,loading,error}=useSelector((state)=>state.joinUser)
     const [userInfo, setUserinfo] = useState({
         firstname: "",
         lastname: "",
         email: "",
         password: ""
     })
+    
     const [UserWarnings, setUserwarnings] = useState({
         firstnameWarning: "",
         lastnamewarning: "",
@@ -55,10 +61,23 @@ const SignUp = () => {
         if(Object.values(userInfo).every(ele=>ele.length>4) && ConfirmPassword===userInfo.password)
         {
             // api call
+            
+            Dispatch(UserSignup(userInfo,Navigate))
+            
         }
         setUserwarnings(wornings)
     }
+
+    useEffect(()=>
+    {
+     let auth=JSON.parse(localStorage.getItem("auth"))
+     if(auth)
+     {
+        Navigate("/home")
+     }
+    },[])
     return (
+        <>
         <div className="flex h-screen w-screen items-center justify-center bg-gray-200">
             <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-2xl">
                 <h2 className="mb-6 text-center text-3xl font-semibold">Sign Up</h2>
@@ -111,9 +130,14 @@ const SignUp = () => {
                     <div className="mt-1 text-sm text-red-500">{ConfirmPasswordWarning}</div>
                 </div>
                 <button onClick={signup} className="w-full rounded-lg bg-blue-500 py-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Sign Up</button>
+                <div className="mt-1 text-sm text-red-500">{error}</div>
                 <p className=" mt-2 ">Already have an account <NavLink className="text-blue-600" to="/login">Login</NavLink> </p>
             </div>
         </div>
+        {
+            loading &&<Loader/>
+        }
+        </>
     )
 }
 

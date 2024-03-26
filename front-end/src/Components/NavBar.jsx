@@ -6,8 +6,9 @@ import E_profile from "../Images/E-Profile.png";
 import SearchImg from "../Images/E-Search.png";
 import Dropdown from "../Images/E-dropdown.png";
 import card from "../Images/Shoping_card.png";
-const Navbar = () => {
+const Navbar = ({Logout}) => {
   const products = useSelector((state) => state.products.AllProducts)
+  const { E_Products, ProductLoading, ProductErr } = useSelector((state) => state.Products)
   const Navigate = useNavigate()
   const [SearchedProduct, setSearchedProduct] = useState("")
   return (
@@ -41,11 +42,12 @@ const Navbar = () => {
             <div className="absolute space-y-2 searchProductDropdown pt-2  w-11/12 ml-4 px-1 bg-white shadow-2xl drop-shadow-2xl overflow-scroll min-h-0 max-h-80 ">
               {
                 // adding the searched product dropdown
-                products.filter((ele) => {
+                E_Products?.filter((ele) => {
                   return ele.title.toLowerCase().includes(SearchedProduct) || ele.category.toLowerCase().includes(SearchedProduct)
                 }).map((ele) => {
                   return <div className="w-full flex justify-start items-center h-12 cursor-pointer hover:bg-slate-200" onClick={() => {
-                    Navigate("/productInfo")
+                    Navigate(`/productInfo/${ele._id}`)
+                    setSearchedProduct("")
                   }}>
                     <img className="h-4/5 w-12" src={ele.thumbnail} alt="" />
                     <div className="ml-2">
@@ -76,7 +78,12 @@ const Navbar = () => {
                   <img className="w-5 h-5" src={E_profile} alt="" />
                   <p className="text-base ml-2 font-semibold">My Profile</p>
                 </NavLink>
-                <li className="flex items-center h-12 hover:bg-slate-100 p-1 mt-1 cursor-pointer">
+                <li className="flex items-center h-12 hover:bg-slate-100 p-1 mt-1 cursor-pointer" onClick={()=>
+                {
+                  localStorage.removeItem("user")
+                  localStorage.removeItem("auth")
+                  Navigate("/")
+                }}>
                   <img className="w-5 h-5" src={LogoutImg} alt="" />
                   <p className="text-base ml-2">Log Out</p>
                 </li>

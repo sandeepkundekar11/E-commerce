@@ -1,11 +1,17 @@
-import { useState } from "react"
-import { NavLink } from "react-router-dom"
-
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+import { UserLogin } from "../Redux/Actions/JoinUserAction";
+import Loader from "./Loader";
 const Login = () => {
+    const Dispatch=useDispatch();
+    const Navigate=useNavigate()
+    const {data,loading,error}=useSelector((state)=>state.joinUser)
     const [UserInfo, setUSerInfo] = useState({
         email: "",
         password: ""
     })
+    
     const [UserInfoWarning, setUserInfoWarning] = useState({
         emailWarning: "",
         passwordwarning: ""
@@ -27,15 +33,26 @@ const Login = () => {
             wornings.passwordwarning = "Password characters can't be less then 4"
         }
         else {
-            wornings.passwordwarning = "Password characters can't be less then 4"
+            wornings.passwordwarning = ""
         }
 
         setUserInfoWarning(wornings)
         if (Object.values(UserInfo).every(ele => ele.length > 4) && UserInfo.password === ConfirmPassword) {
             // api call
+            Dispatch(UserLogin(UserInfo,Navigate))
         }
     }
+
+    useEffect(()=>
+    {
+     let auth=JSON.parse(localStorage.getItem("auth"))
+     if(auth)
+     {
+        Navigate("/home")
+     }
+    },[])
     return (
+      <>
         <div className="bg-gray-200 flex items-center justify-center w-screen h-screen">
             <div className="bg-white p-8 rounded shadow-md max-w-md w-full">
                 <h2 className="text-2xl font-semibold text-center mb-4">Login</h2>
@@ -81,11 +98,15 @@ const Login = () => {
                     <button type="button"
                         onClick={Loginfun}
                         className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Login</button>
-
+                     <p className="text-lg text-red-500 mt-1 ">{error}</p>
                     <p className="mt-2">Don't have an account <NavLink className="text-blue-600">SignUp</NavLink></p>
                 </div>
             </div>
         </div>
+        {
+            loading && <Loader/>
+        }
+      </>
     )
 }
 export default Login

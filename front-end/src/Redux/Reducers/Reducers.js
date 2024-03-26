@@ -1,14 +1,22 @@
-import data from "../app.json";
 import {
-  BRAND_FILTER,
-  CATEGORY_FILTER,
-  CLEAR_ALL_FILTER,
-  CLEAR_FILTER,
-  GETALL_PRODUCTS,
-  PRICE_FILTER,
-} from "./Actions";
+    BRAND_FILTER,
+    CATEGORY_FILTER,
+    CLEAR_ALL_FILTER,
+    CLEAR_FILTER,
+    GETALL_PRODUCTS,
+    PRICE_FILTER,
+    PRODUCTS,
+    PRODUCTS_ERROR,
+    PRODUCTS_REQUEST,
+} from "../Actions/Actions";
+
+const Product = {
+  E_Products: null,
+  ProductLoading: false,
+  ProductErr: null
+}
 const InitilaProducts = {
-  AllProducts: data,
+  AllProducts: [],
   CategoryFilter: [],
   BrandFilter: [],
   PriceFilter: [],
@@ -19,7 +27,7 @@ export const ProductReducer = (state = InitilaProducts, action) => {
     case GETALL_PRODUCTS:
       return {
         ...state,
-        AllProducts: data.filter((ele) => {
+        AllProducts: action.payload?.filter((ele) => {
           let category =
             state.CategoryFilter.length === 0 ||
             state.CategoryFilter.includes(ele.category);
@@ -40,8 +48,8 @@ export const ProductReducer = (state = InitilaProducts, action) => {
         ...state,
         CategoryFilter: state.CategoryFilter?.includes(action.payload)
           ? state.CategoryFilter?.filter((ele) => {
-              return ele !== action.payload;
-            })
+            return ele !== action.payload;
+          })
           : [...state.CategoryFilter, action.payload],
       };
     case BRAND_FILTER:
@@ -49,8 +57,8 @@ export const ProductReducer = (state = InitilaProducts, action) => {
         ...state,
         BrandFilter: state.BrandFilter?.includes(action.payload)
           ? state.BrandFilter.filter((ele) => {
-              return ele !== action.payload;
-            })
+            return ele !== action.payload;
+          })
           : [...state.BrandFilter, action.payload],
       };
     case PRICE_FILTER:
@@ -58,8 +66,8 @@ export const ProductReducer = (state = InitilaProducts, action) => {
         ...state,
         PriceFilter: state.PriceFilter?.includes(action.payload)
           ? state.PriceFilter.filter((ele) => {
-              return ele !== action.payload;
-            })
+            return ele !== action.payload;
+          })
           : [...state.PriceFilter, action.payload],
       };
     case CLEAR_FILTER:
@@ -86,3 +94,30 @@ export const ProductReducer = (state = InitilaProducts, action) => {
       return state;
   }
 };
+
+export const GetProductsReducer = (state = Product, action) => {
+  switch (action.type) {
+    case PRODUCTS:
+      return {
+        ...state,
+        E_Products: action.payload,
+        ProductLoading: false,
+      }
+
+    case PRODUCTS_REQUEST:
+      return {
+        ...state,
+      ProductLoading: true,
+        ProductErr: null
+      }
+    case PRODUCTS_ERROR:
+      return {
+        ...state,
+        ProductLoading: false,
+        ProductErr: action.payload
+      }
+
+    default:
+      return state
+  }
+}
