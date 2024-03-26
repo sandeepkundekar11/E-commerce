@@ -1,8 +1,10 @@
 const Loader = () => {
   return (
     <div class="loader flex fixed top-0 bottom-0 flex-col justify-center items-center w-screen h-screen">
-      <div class="animate-spin rounded-full h-20 w-20 border-t-2 border-b-4 border-gray-900"></div>
-      <h1 class="mt-2 text-lg font-medium text-center">Loading...</h1>
+      <div class="flex flex-col justify-center z-50">
+        <img class="animate-spin" width="60" height="60" src="https://img.icons8.com/color/48/loading-sign.png" alt="loading-sign" />
+        <h1 class="-ml-4 mt-3 animate-pulse text-2xl font-bold ease-linear">Loading ...</h1>
+      </div>
     </div>
   );
 };

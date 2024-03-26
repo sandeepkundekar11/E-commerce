@@ -9,7 +9,7 @@ import {
   SelectPrice,
   SetBrand,
   SetCategory,
-} from "../Redux/Actions";
+} from "../Redux/Actions/Actions";
 import { Brands, Categories, Prices } from "../constants";
 import FilterComp from "./FilterComp";
 const SideFilter = () => {
