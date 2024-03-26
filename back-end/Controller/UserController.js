@@ -183,6 +183,8 @@ const Addaddress = AsyncHandler(async (req, res) => {
     }
   }
 });
+
+
 //  in the following api we are deleting the selected Address
 
 // http://localhost:8000/ecommerce/deleteAddress? id=65fdb9b73233bbad381f1838 &&addressId=65fe7cef6dba152c76a2d344  PUT request
@@ -292,6 +294,14 @@ const DeleteCard = AsyncHandler(async (req, res) => {
     res.json({ message: "Product deleted successfully" });
   }
 });
+
+// Bellow we are write a code to get All details of User
+const UserData=AsyncHandler(async(req,res)=>
+{
+  let user=await Usermodel.findOne({_id:req.params.id})
+  res.json(user)
+})
+
 module.exports = {
   Signup,
   Login,
@@ -304,4 +314,5 @@ module.exports = {
   AddProductCard,
   OrderCount,
   DeleteCard,
+  UserData
 };

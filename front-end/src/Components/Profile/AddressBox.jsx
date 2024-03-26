@@ -1,13 +1,13 @@
-const AddressBox = () => {
+const AddressBox = ({name,phone_number,pincode,address}) => {
   return (
-    <div class="relative h-auto w-11/12 border p-3">
+    <div class="relative h-auto w-11/12 border p-3 mt-2">
       <div class="flex">
-        <h1 class="text-base font-semibold">Sandeep Kundekar</h1>
-        <h1 class="ml-4 text-base">8217291928</h1>
+        <h1 class="text-base font-semibold">{name}</h1>
+        <h1 class="ml-4 text-base">{phone_number}</h1>
       </div>
       <div class="mt-2">
-        Hanuman Luxury PGq, 211, Hoodi Garden, Hoodi, Bengaluru, Karnataka -
-        560048
+        {address} -
+        {pincode}
       </div>
 
       {/* <!-- hover icon --> */}
