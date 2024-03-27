@@ -9,18 +9,16 @@ import TosterProvider from "./ToasterProvider";
 const App = () => {
   return (
     <>
-      <TosterProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<SignUp />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/profile" element={<EditProfile />} />
-            <Route path="/checkout" element={<ProductsCheckoutComp />} />
-            <Route path="/productInfo/:id" element={<ProductInfo />} />
-          </Routes>
-        </BrowserRouter>
-      </TosterProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<SignUp />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<EditProfile />} />
+          <Route path="/checkout" element={<ProductsCheckoutComp />} />
+          <Route path="/productInfo/:id" element={<ProductInfo />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 };

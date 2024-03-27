@@ -5,10 +5,10 @@ export const PRICE_FILTER = "price_filter";
 export const CLEAR_FILTER = "clear_filter";
 export const CLEAR_ALL_FILTER = "clear_all_filter";
 
-// 
-export const PRODUCTS_REQUEST="product_request";
-export const PRODUCTS="products";
-export const PRODUCTS_ERROR="producterror"
+//
+export const PRODUCTS_REQUEST = "product_request";
+export const PRODUCTS = "products";
+export const PRODUCTS_ERROR = "producterror";
 export const SetCategory = (ele) => {
   return {
     type: CATEGORY_FILTER,
@@ -24,7 +24,7 @@ export const SetBrand = (ele) => {
 export const GetAllProducts = (data) => {
   return {
     type: GETALL_PRODUCTS,
-    payload:data
+    payload: data,
   };
 };
 
@@ -47,45 +47,40 @@ export const ClearAllFilter = () => {
   };
 };
 
+export const ProductsLoad = () => {
+  return {
+    type: PRODUCTS_REQUEST,
+  };
+};
 
-export const ProductsLoad=()=>
-{
-  return{
-    type:PRODUCTS_REQUEST,
-  }
-}
-
-export const GetProducts=(data)=>
-{
-  return{
-    type:PRODUCTS,
-    payload:data
-  }
-}
-export const ProductError=(data)=>
-{
-  return{
-    type:ProductError,
-    payload:data
-  }
-}
+export const GetProducts = (data) => {
+  return {
+    type: PRODUCTS,
+    payload: data,
+  };
+};
+export const ProductError = (data) => {
+  return {
+    type: ProductError,
+    payload: data,
+  };
+};
 
 // calling the get products api
 
-export const GetApiProducts=()=>
-{
- return async(dispatch)=>
- {
-  try {
-    dispatch(ProductsLoad())
-    let response= await fetch("http://192.168.0.109:8000/ecommerce/allproducts")
-    let products= await response.json()
-    if(products)
-    {
-      dispatch(GetProducts(products))
+export const GetApiProducts = () => {
+  return async (dispatch) => {
+    try {
+      dispatch(ProductsLoad());
+      let response = await fetch(
+        "http://192.168.21.164:8000/ecommerce/allproducts"
+      );
+      let products = await response.json();
+      if (products) {
+        dispatch(GetProducts(products));
+      }
+    } catch (error) {
+      dispatch(ProductError(error));
     }
-  } catch (error) {
-    dispatch(ProductError(error))
-  }
- }
-}
+  };
+};

@@ -109,3 +109,9 @@
   background-color: rgba(128, 128, 128, 0.615);
   z-index: 100;
 }
+.tosterContainer {
+  z-index: 110;
+}
+.Toaster {
+  width: 450px;
+}

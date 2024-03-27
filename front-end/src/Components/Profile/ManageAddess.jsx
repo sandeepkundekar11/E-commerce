@@ -1,19 +1,34 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { GetApiAddress } from "../../Redux/Actions/AddressActions";
+import { GetApiAddress, LoadAddress } from "../../Redux/Actions/AddressActions";
 import { GetALLApidata } from "../../Redux/Actions/AllDataAction";
 import Loader from "../Loader";
 import AddAddressComp from "./AddAddressComp";
 import AddressBox from "./AddressBox";
+import Tosters from "../../Toaster";
 const ManageAddress = () => {
+  const [ManagerPopups, SetManagerPopup] = useState(null);
   const [showAddAddress, setShowAddress] = useState(false);
-  const dispatch = useDispatch()
-  const { addressData, addressLoading, addressErr } = useSelector((state) => state.UserAddress)
-  const { userData, userDataLoading, userDataErr } = useSelector((state) => state.AllData)
+  const dispatch = useDispatch();
+  const { Success } = Tosters();
+  const { addressData, addressLoading, addressErr } = useSelector(
+    (state) => state.UserAddress
+  );
+  const { userData, userDataLoading, userDataErr } = useSelector(
+    (state) => state.AllData
+  );
   useEffect(() => {
-    let userID = JSON.parse(localStorage.getItem("user"))._id
-    dispatch(GetALLApidata(userID))
-  }, [addressData])
+    let userID = JSON.parse(localStorage.getItem("user"))._id;
+    dispatch(GetALLApidata(userID));
+  }, [addressData]);
+
+  useEffect(() => {
+    // setting the Success Popup for the Addaddress
+    if (ManagerPopups?.message) {
+      Success(addressData.message);
+      setShowAddress(null);
+    }
+  }, [ManagerPopups]);
   return (
     <>
       <div class="h-full w-full p-4">
@@ -42,10 +57,9 @@ const ManageAddress = () => {
               setShowAddress(false);
             }}
             onSave={(data) => {
-              console.log(data)
-              let userId = JSON.parse(localStorage.getItem("user"))._id
-              console.log(userId)
-              dispatch(GetApiAddress(userId, data))
+              let userId = JSON.parse(localStorage.getItem("user"))._id;
+              dispatch(GetApiAddress(userId, data));
+              SetManagerPopup(addressData);
               setShowAddress(false);
             }}
           />
@@ -54,18 +68,18 @@ const ManageAddress = () => {
         {/* <!-- available addresses conatiner --> */}
         <div class="mt-8 w-full">
           {/* <!-- address card --> */}
-          {
-            userData?.address.length>0?
-            userData?.address.map((ele) => {
-              return (
-                <AddressBox 
-                address={ele.address} 
-                name={ele.name} 
-                pincode={ele.pincode} 
-                phone_number={ele.phone_number} />
-              )
-            }):""
-          }
+          {userData?.address.length > 0
+            ? userData?.address.map((ele) => {
+                return (
+                  <AddressBox
+                    address={ele.address}
+                    name={ele.name}
+                    pincode={ele.pincode}
+                    phone_number={ele.phone_number}
+                  />
+                );
+              })
+            : ""}
         </div>
       </div>
       {

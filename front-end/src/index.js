@@ -3,10 +3,13 @@ import { Provider } from "react-redux";
 import App from "./App";
 import "./App.css";
 import { store } from "./Redux/Store";
-const root = ReactDOM.createRoot(document.getElementById("root"))
+import TosterProvider from "./ToasterProvider";
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
+  <TosterProvider>
     <Provider store={store}>
-        <App />
+      <App />
     </Provider>
-)
+  </TosterProvider>
+);
