@@ -27,7 +27,7 @@ export const UserSignup = (data, navigate) => {
     try {
       dispatch(requestUser());
       let responce = await fetch(
-        "http://192.168.21.164:8000/ecommerce/signup",
+        "http://192.168.0.109:8000/ecommerce/signup",
         {
           method: "POST",
           headers: {
@@ -57,7 +57,7 @@ export const UserLogin = (data, navigate) => {
   return async (dispatch) => {
     try {
       dispatch(requestUser());
-      let responce = await fetch("http://192.168.21.164:8000/ecommerce/login", {
+      let responce = await fetch("http://192.168.0.109:8000/ecommerce/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

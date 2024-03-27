@@ -73,7 +73,7 @@ export const GetApiProducts = () => {
     try {
       dispatch(ProductsLoad());
       let response = await fetch(
-        "http://192.168.21.164:8000/ecommerce/allproducts"
+        "http://192.168.0.109:8000/ecommerce/allproducts"
       );
       let products = await response.json();
       if (products) {

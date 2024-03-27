@@ -1,4 +1,42 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { GetALLApidata } from "../../Redux/Actions/AllDataAction";
+import Loader from "../Loader";
+
 const ProfileComponent = () => {
+  const dispatch = useDispatch()
+  // getting  all the user data
+  const { userData, userDataLoading, } = useSelector(
+    (state) => state.AllData
+  );
+  const [enableuserInfo, setEnableUserInfo] = useState(false)
+  const [enableuserEmail, setEnableUserEmail] = useState(false)
+  const [enablePhone, setEnablephone] = useState(false)
+  // user edit data
+  const [UserEditInfo, serUserEditInfo] = useState({
+    firstname: "",
+    lastname: "",
+    gender: ""
+  })
+
+  // user Email
+  const [UserEmail, setUserEmail] = useState("")
+  // Phone number
+  const [PhoneNumber, setphoneNumber] = useState("")
+  useEffect(() => {
+    let userID = JSON.parse(localStorage.getItem("user"))._id;
+    dispatch(GetALLApidata(userID));
+  }, [])
+
+  useEffect(() => {
+    serUserEditInfo({
+      firstname: userData?.firstname,
+      lastname: userData?.lastname,
+      gender: userData?.gender
+    })
+    setUserEmail(userData?.email)
+    setphoneNumber(userData?.phone_no)
+  }, [userData])
   return (
     <>
       {/* <!-- Persanol Information start --> */}
@@ -7,24 +45,41 @@ const ProfileComponent = () => {
           <h1 className="text-xl font-medium text-gray-600">
             Personal Information
           </h1>
-          <button className="ml-6 text-lg font-medium text-blue-600">
-            Edit
-          </button>
+
+          {
+            !enableuserInfo && (<button className="ml-6 text-lg font-medium text-blue-600" onClick={() => {
+              setEnableUserInfo(true)
+            }}>
+              Edit
+            </button>)
+          }
         </div>
 
         <div className="nameInputs mt-8 flex">
           <input
-            className="h-11 w-2/4 bg-blue-50 pl-3 outline-none md:w-2/5"
+            className={`h-11 w-2/4 bg-blue-50 pl-3 outline-none md:w-2/5 ${!enableuserInfo && "cursor-not-allowed"}`}
             type="text"
             name=""
             id=""
+            value={UserEditInfo.firstname}
+            onChange={(e) => {
+              if (enableuserInfo) {
+                serUserEditInfo({ ...UserEditInfo, firstname: e.target.value })
+              }
+            }}
             placeholder="First name"
           />
           <input
-            className="ml-5 h-11 w-2/4 bg-blue-50 pl-3 outline-none md:w-2/5"
+            className={`ml-5 h-11 w-2/4 bg-blue-50 pl-3 outline-none md:w-2/5 ${!enableuserInfo && "cursor-not-allowed"}`}
             type="text"
             name=""
             id=""
+            value={UserEditInfo.lastname}
+            onChange={(e) => {
+              if (enableuserInfo) {
+                serUserEditInfo({ ...UserEditInfo, lastname: e.target.value })
+              }
+            }}
             placeholder="Last name"
           />
         </div>
@@ -33,9 +88,18 @@ const ProfileComponent = () => {
           {/* <!-- male --> */}
           <div className="flex items-center">
             <input
-              className="h-5 w-5 appearance-none rounded-full border-2 p-1 checked:bg-blue-800"
+              className={`h-5 w-5 appearance-none rounded-full border-2 p-1 checked:bg-blue-800 ${!enableuserInfo && "cursor-not-allowed"}`}
               type="radio"
               name="Gender"
+              checked={UserEditInfo.gender === "Male"}
+              onClick={(e) => {
+                if (enableuserInfo) {
+                  serUserEditInfo({
+                    ...UserEditInfo,
+                    gender: "Male"
+                  })
+                }
+              }}
               id=""
             />
             <p className="ml-2 text-lg text-gray-600">Male</p>
@@ -43,50 +107,103 @@ const ProfileComponent = () => {
           {/* <!-- female --> */}
           <div className="ml-4 flex items-center">
             <input
-              className="h-5 w-5 appearance-none rounded-full border-2 p-1 checked:bg-blue-800"
+              className={`h-5 w-5 appearance-none rounded-full border-2 p-1 checked:bg-blue-800 ${!enableuserInfo && "cursor-not-allowed"}`}
               type="radio"
               name="Gender"
+              checked={UserEditInfo.gender === "Female"}
               id=""
+              onClick={(e) => {
+                if (enableuserInfo) {
+                  serUserEditInfo({
+                    ...UserEditInfo,
+                    gender: "Female"
+                  })
+                }
+              }}
             />
             <p className="ml-2 text-lg text-gray-600">Female</p>
           </div>
         </div>
       </div>
+
+      {/* edit user name and gender */}
+      {
+        enableuserInfo && <EditButtons onCancel={() => {
+          setEnableUserInfo(false)
+        }} onEditSave={() => {
+          console.log("u")
+        }} />
+      }
       {/* <!-- Personal information ends  --> */}
       {/* <!-- Email Address Start --> */}
       <div className="EmailAddressChange mt-6">
         <div className="EmailHead mt-4 flex items-end">
           <h1 className="text-xl font-medium text-gray-600">Email Address</h1>
-          <button className="ml-6 text-lg font-medium text-blue-600">
-            Edit
-          </button>
+          {
+            !enableuserEmail && (
+              <button className="ml-6 text-lg font-medium text-blue-600" onClick={() => {
+                setEnableUserEmail(true)
+              }}>
+                Edit
+              </button>
+            )
+          }
         </div>
         <input
           type="text"
-          className="mt-5 h-11 w-9/12 bg-blue-50 pl-3 outline-none md:w-2/5"
+          className={`mt-5 h-11 w-9/12 bg-blue-50 pl-3 outline-none md:w-2/5 ${!enableuserEmail && "cursor-not-allowed"}`}
           name=""
           id=""
+          onChange={(e) => {
+            if (enableuserEmail) {
+              setUserEmail(e.target.value)
+            }
+          }}
+          value={UserEmail}
           placeholder="Enter your email"
         />
       </div>
+      {
+        enableuserEmail &&
+        <EditButtons onCancel={() => {
+          setEnableUserEmail(false)
+        }} />
+      }
       {/* <!-- Email Address Ends --> */}
-      {/* <!-- password start --> */}
+      {/* <!-- phone start --> */}
       <div className="PassowrdChange mt-6">
         <div className="EmailHead mt-4 flex items-end">
           <h1 className="text-xl font-medium text-gray-600">Mobile Number</h1>
-          <button className="ml-6 text-lg font-medium text-blue-600">
-            Edit
-          </button>
+          {
+            !enablePhone && (
+              <button className="ml-6 text-lg font-medium text-blue-600" onClick={() => {
+                setEnablephone(true)
+              }}>
+                Edit
+              </button>
+            )
+          }
         </div>
         <input
           type="text"
-          className="mt-5 h-11 w-9/12 bg-blue-50 pl-3 outline-none md:w-2/5"
+          className={`mt-5 h-11 w-9/12 bg-blue-50 pl-3 outline-none md:w-2/5 ${!enablePhone && "cursor-not-allowed"}`}
           placeholder="+911234567892"
           name=""
+          value={PhoneNumber}
+          onChange={(e) => {
+            if (enablePhone) {
+              setphoneNumber(e.target.value)
+            }
+          }}
           id=""
         />
       </div>
-      {/* <!-- password ends --> */}
+      {
+        enablePhone && <EditButtons onCancel={() => {
+          setEnablephone(false)
+        }} />
+      }
+      {/* <!-- phone ends --> */}
 
       <div className="FAQs mt-8">
         <h1 className="text-2xl font-semibold text-gray-700">FAQs</h1>
@@ -122,7 +239,23 @@ const ProfileComponent = () => {
       <p className="mt-7 text-blue-800 font-semibold cursor-pointer">
         Deactivate account
       </p>
+
+
+      {
+        userDataLoading && <Loader />
+      }
     </>
   );
 };
 export default ProfileComponent;
+
+
+// diffirent Component for the buttons
+const EditButtons = ({ onEditSave, onCancel }) => {
+  return (
+    <div className="md:w-10/12 mt-4 flex justify-start">
+      <button className="w-32 h-10 rounded-md bg-blue-300 hover:bg-blue-400 transition-all duration-200" onClick={onEditSave}>Save</button>
+      <button className="w-32 h-10 ml-5 rounded-md bg-red-300 hover:bg-red-400 transition-all duration-200" onClick={onCancel}>Cancel</button>
+    </div>
+  )
+}

@@ -1,16 +1,21 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import LogoutImg from "../Images/E-Logout.png";
 import E_profile from "../Images/E-Profile.png";
 import SearchImg from "../Images/E-Search.png";
 import Dropdown from "../Images/E-dropdown.png";
 import card from "../Images/Shoping_card.png";
+import { GetApiProducts } from "../Redux/Actions/Actions";
 const Navbar = ({Logout}) => {
+  const dispatch=useDispatch()
   const products = useSelector((state) => state.products.AllProducts)
   const { E_Products, ProductLoading, ProductErr } = useSelector((state) => state.Products)
   const Navigate = useNavigate()
   const [SearchedProduct, setSearchedProduct] = useState("")
+  useEffect(() => {
+    dispatch(GetApiProducts())
+  }, [])
   return (
     <div className="w-screen bg-blue-700 flex h-16 items-center px-4 fixed top-0 z-40">
       <div className="w-11/12 flex m-auto items-center">

@@ -27,7 +27,7 @@ export const GetApiProductInfo = (id) => {
     try {
       dispatch(GetrequestInfoProduct());
       let responce = await fetch(
-        `http://192.168.21.164:8000/ecommerce/info/${id}`
+        `http://192.168.0.109:8000/ecommerce/info/${id}`
       );
       let data = await responce.json();
       if (data) {

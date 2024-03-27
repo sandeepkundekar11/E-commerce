@@ -97,10 +97,12 @@ const UpdatePersonalDetail = AsyncHandler(async (req, res) => {
 
     if (user.acknowledged) {
       let userdeatil = await Usermodel.findOne({ _id: req.params.id });
-      res.json({
-        acknowledged: user.acknowledged,
-        user: userdeatil,
-      });
+      if(userdeatil)
+      {
+        res.json({
+          message:"User updated successfully"
+        })
+      }
     }
   }
 });
