@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import profileImg from "../../Images/E-Profile.png";
 import Navbar from "../NavBar";
 import ManageAddress from "./ManageAddess";
 import ProfileComponent from "./ProfileComponent";
 const EditProfile = () => {
   const [SelectedProfile, setSelectedProfile] = useState("PersonalInfo");
+  const dispatch=useDispatch()
+  const { userData, userDataLoading } = useSelector((state) => state.AllData);
   const EditProfileArr = [
     {
       id: 1,
@@ -36,7 +39,7 @@ const EditProfile = () => {
             <input className="absolute h-12 w-12 opacity-0" type="file" />
             <div>
               <p className="ml-1 text-sm">Hello,</p>
-              <h1 className="ml-1 text-base font-semibold">Sandeep Kundekar</h1>
+              <h1 className="ml-1 text-base font-semibold">{userData?.firstname}<span> </span>{userData?.lastname}</h1>
             </div>
           </div>
           {/* <!-- Profle Img Ends --> */}
