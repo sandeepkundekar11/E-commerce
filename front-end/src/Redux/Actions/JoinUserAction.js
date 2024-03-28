@@ -1,3 +1,5 @@
+import { LocalHost } from "../../constants";
+
 export const REQUEST_USER = "requestUser";
 export const USER_JOIN = "userjoin";
 export const JOIN_ERROR = "joinerror";
@@ -26,16 +28,13 @@ export const UserSignup = (data, navigate) => {
   return async (dispatch) => {
     try {
       dispatch(requestUser());
-      let responce = await fetch(
-        "http://192.168.0.109:8000/ecommerce/signup",
-        {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      let responce = await fetch(`http://${LocalHost}:8000/ecommerce/signup`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       let user = await responce.json();
 
       if (user.message === "User Already exist") {
@@ -57,7 +56,7 @@ export const UserLogin = (data, navigate) => {
   return async (dispatch) => {
     try {
       dispatch(requestUser());
-      let responce = await fetch("http://192.168.0.109:8000/ecommerce/login", {
+      let responce = await fetch(`http://${LocalHost}:8000/ecommerce/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

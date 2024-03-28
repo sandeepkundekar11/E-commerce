@@ -20,16 +20,13 @@ const ManageAddress = () => {
   useEffect(() => {
     let userID = JSON.parse(localStorage.getItem("user"))._id;
     dispatch(GetALLApidata(userID));
-  }, [addressData, dispatch]);
+  }, [addressData]);
 
   useEffect(() => {
     // setting the Success Popup for the Addaddress
-    if (ManagerPopups?.message) {
-      Success(addressData?.message|| "address stored successfully");
-      SetManagerPopup(null);
-    }
-   
-  }, [ManagerPopups, Success, addressData?.message]);
+    Success(ManagerPopups?.message);
+    SetManagerPopup(null);
+  }, [ManagerPopups, dispatch, addressData?.message]);
   return (
     <>
       <div class="h-full w-full p-4">
@@ -54,6 +51,7 @@ const ManageAddress = () => {
         {/* <!-- form to add the address --> */}
         {showAddAddress && (
           <AddAddressComp
+            key={Date.now()}
             onCancel={() => {
               setShowAddress(false);
             }}

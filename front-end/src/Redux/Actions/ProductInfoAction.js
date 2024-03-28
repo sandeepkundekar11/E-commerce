@@ -1,3 +1,5 @@
+import { LocalHost } from "../../constants";
+
 export const REQUEST_INFOPRODUCT = "requestproduct";
 export const INFO_PRODUCT = "infoproduct";
 export const INFO_PRODUCT_ERROR = "infoProducterror";
@@ -27,7 +29,7 @@ export const GetApiProductInfo = (id) => {
     try {
       dispatch(GetrequestInfoProduct());
       let responce = await fetch(
-        `http://192.168.0.109:8000/ecommerce/info/${id}`
+        `http://${LocalHost}:8000/ecommerce/info/${id}`
       );
       let data = await responce.json();
       if (data) {

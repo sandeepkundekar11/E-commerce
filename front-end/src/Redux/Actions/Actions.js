@@ -1,3 +1,5 @@
+import { LocalHost } from "../../constants";
+
 export const CATEGORY_FILTER = "category_filter";
 export const BRAND_FILTER = "brand_filter";
 export const GETALL_PRODUCTS = "getall_products";
@@ -73,7 +75,7 @@ export const GetApiProducts = () => {
     try {
       dispatch(ProductsLoad());
       let response = await fetch(
-        "http://192.168.0.109:8000/ecommerce/allproducts"
+        `http://${LocalHost}:8000/ecommerce/allproducts`
       );
       let products = await response.json();
       if (products) {

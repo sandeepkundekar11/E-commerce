@@ -1,3 +1,5 @@
+import { LocalHost } from "../../constants";
+
 export const LOAD_ADDRESS = "loadaddress";
 export const ADDRESS = "address";
 export const ADDRESS_ERR = "addressError";
@@ -26,7 +28,7 @@ export const GetApiAddress = (UserId, address) => {
     try {
       dispatch(LoadAddress());
       let responce = await fetch(
-        `http://192.168.0.109:8000/ecommerce/addAddress/${UserId}`,
+        `http://${LocalHost}:8000/ecommerce/addAddress/${UserId}`,
         {
           method: "PUT",
           headers: {

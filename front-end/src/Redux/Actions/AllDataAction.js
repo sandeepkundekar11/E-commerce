@@ -1,3 +1,5 @@
+import { LocalHost } from "../../constants";
+
 export const ALLDATA = "alldata";
 export const ALLDATA_LOADING = "alldataloading";
 export const ALLDATA_ERR = "alldataErr";
@@ -25,7 +27,7 @@ export const GetALLApidata = (id) => {
     try {
       dispatch(AllDataLoading());
       let responce = await fetch(
-        `http://192.168.0.109:8000/ecommerce/userInfo/${id}`
+        `http://${LocalHost}:8000/ecommerce/userInfo/${id}`
       );
       let data = await responce.json();
       if (data) {
