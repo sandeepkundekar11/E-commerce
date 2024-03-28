@@ -25,7 +25,7 @@ export const GetALLApidata = (id) => {
     try {
       dispatch(AllDataLoading());
       let responce = await fetch(
-        `http://192.168.21.164:8000/ecommerce/userInfo/${id}`
+        `http://192.168.0.109:8000/ecommerce/userInfo/${id}`
       );
       let data = await responce.json();
       if (data) {

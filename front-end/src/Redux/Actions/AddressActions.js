@@ -26,7 +26,7 @@ export const GetApiAddress = (UserId, address) => {
     try {
       dispatch(LoadAddress());
       let responce = await fetch(
-        `http://192.168.21.164:8000/ecommerce/addAddress/${UserId}`,
+        `http://192.168.0.109:8000/ecommerce/addAddress/${UserId}`,
         {
           method: "PUT",
           headers: {

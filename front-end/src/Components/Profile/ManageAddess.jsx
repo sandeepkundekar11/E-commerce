@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { GetApiAddress, LoadAddress } from "../../Redux/Actions/AddressActions";
+import { GetApiAddress } from "../../Redux/Actions/AddressActions";
 import { GetALLApidata } from "../../Redux/Actions/AllDataAction";
+import Tosters from "../../Toaster";
 import Loader from "../Loader";
 import AddAddressComp from "./AddAddressComp";
 import AddressBox from "./AddressBox";
-import Tosters from "../../Toaster";
 const ManageAddress = () => {
   const [ManagerPopups, SetManagerPopup] = useState(null);
   const [showAddAddress, setShowAddress] = useState(false);
@@ -20,15 +20,16 @@ const ManageAddress = () => {
   useEffect(() => {
     let userID = JSON.parse(localStorage.getItem("user"))._id;
     dispatch(GetALLApidata(userID));
-  }, [addressData]);
+  }, [addressData, dispatch]);
 
   useEffect(() => {
     // setting the Success Popup for the Addaddress
     if (ManagerPopups?.message) {
-      Success(addressData.message);
-      setShowAddress(null);
+      Success(addressData?.message|| "address stored successfully");
+      SetManagerPopup(null);
     }
-  }, [ManagerPopups]);
+   
+  }, [ManagerPopups, Success, addressData?.message]);
   return (
     <>
       <div class="h-full w-full p-4">

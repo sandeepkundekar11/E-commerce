@@ -5,7 +5,6 @@ import Login from "./Components/Login";
 import ProductInfo from "./Components/ProductInfo";
 import EditProfile from "./Components/Profile/EditProfile";
 import SignUp from "./Components/SignUp";
-import TosterProvider from "./ToasterProvider";
 const App = () => {
   return (
     <>
