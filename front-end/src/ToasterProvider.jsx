@@ -9,7 +9,7 @@ const TosterProvider = ({ children }) => {
       {children}
       <ToastContainer
         position="top-center"
-        autoClose={false}
+        autoClose={4000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

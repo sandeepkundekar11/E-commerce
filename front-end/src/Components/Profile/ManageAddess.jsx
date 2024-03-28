@@ -7,7 +7,6 @@ import Loader from "../Loader";
 import AddAddressComp from "./AddAddressComp";
 import AddressBox from "./AddressBox";
 const ManageAddress = () => {
-  const [ManagerPopups, SetManagerPopup] = useState(null);
   const [showAddAddress, setShowAddress] = useState(false);
   const dispatch = useDispatch();
   const { Success } = Tosters();
@@ -22,11 +21,6 @@ const ManageAddress = () => {
     dispatch(GetALLApidata(userID));
   }, [addressData]);
 
-  useEffect(() => {
-    // setting the Success Popup for the Addaddress
-    Success(ManagerPopups?.message);
-    SetManagerPopup(null);
-  }, [ManagerPopups, dispatch, addressData?.message]);
   return (
     <>
       <div class="h-full w-full p-4">
@@ -58,8 +52,8 @@ const ManageAddress = () => {
             onSave={(data) => {
               let userId = JSON.parse(localStorage.getItem("user"))._id;
               dispatch(GetApiAddress(userId, data));
-              SetManagerPopup(addressData);
               setShowAddress(false);
+              Success(addressData?.message || "User updated successfully");
             }}
           />
         )}
