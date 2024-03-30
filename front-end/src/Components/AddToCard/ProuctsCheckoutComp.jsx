@@ -12,11 +12,17 @@ import {
   IncreamentProductCount,
 } from "../../Redux/Actions/ProductCountActions";
 import Tosters from "../../Toaster";
+import { DeleletProduct } from "../../Redux/Actions/DeleteAction";
 
 const ProductsCheckoutComp = () => {
   const dispatch = useDispatch();
   const { ProductDataCount, ProductDataLoading } = useSelector(
     (state) => state.CardCount
+  );
+
+  // for delete address
+  const { DeleteInfo, DeleteLoading } = useSelector(
+    (state) => state.DeleteCard
   );
   const [OriginalPrice, setOriginalPrice] = useState(null);
   const [TotalDiscountPrice, setTotalDiscountPrice] = useState(null);
@@ -24,9 +30,10 @@ const ProductsCheckoutComp = () => {
   const { userData, userDataLoading } = useSelector((state) => state.AllData);
   const { Success } = Tosters();
   useEffect(() => {
+    // getting all user data
     let userId = JSON.parse(localStorage.getItem("user"))._id;
     dispatch(GetALLApidata(userId));
-  }, [dispatch, ProductDataCount]);
+  }, [dispatch, ProductDataCount, DeleteInfo]);
 
   useEffect(() => {
     // setting the total original price
@@ -43,17 +50,20 @@ const ProductsCheckoutComp = () => {
     let TotalDicountPrice = userData?.ProductCard.reduce((acc, cur) => {
       let percentage = cur.percentage;
       let originalPrice = Math.round(cur.price / (percentage / 100 - 1));
-      let dicountPrice = (originalPrice * -1 - cur.price) * cur?.count;
+      let disocunt = Math.abs(originalPrice);
+      let dicountPrice = (disocunt - cur.price) * cur?.count;
       acc += dicountPrice;
       return acc;
     }, 0);
     setTotalDiscountPrice(TotalDicountPrice);
 
     // Setting the Total Price
-
+    console.log(OriginalPrice, "OriginalPrice");
+    console.log(TotalDicountPrice, "TotalDicountPrice");
     SetProductsTotalPrice(OriginalPrice - TotalDicountPrice);
-  }, [userData]);
+  }, [userData, DeleteInfo, ProductDataCount, OriginalPrice]);
 
+  // Decrease count function
   const ProductDecrement = (ele) => {
     if (ele.count > 1) {
       let userId = JSON.parse(localStorage.getItem("user"))._id;
@@ -62,10 +72,18 @@ const ProductsCheckoutComp = () => {
     }
   };
 
+  // increase count function
   const ProductIncrement = (ele) => {
     let userId = JSON.parse(localStorage.getItem("user"))._id;
     dispatch(IncreamentProductCount(userId, ele._id));
     Success("Product added successfully");
+  };
+
+  // Delete Product function
+  const DeleteProductCard = (ele) => {
+    let userId = JSON.parse(localStorage.getItem("user"))._id;
+    dispatch(DeleletProduct(userId, ele._id));
+    Success(`${ele?.productname} deleted successfully`);
   };
   return (
     <>
@@ -110,6 +128,9 @@ const ProductsCheckoutComp = () => {
                       ProductIncrease={() => {
                         ProductIncrement(ele);
                       }}
+                      DeleteCard={() => {
+                        DeleteProductCard(ele);
+                      }}
                     />
                   );
                 })}
@@ -137,6 +158,9 @@ const ProductsCheckoutComp = () => {
 
       {/* this loader we are using to load the productCount */}
       {ProductDataLoading && <Loader />}
+
+      {/* this loader we are using to load the Delete Product card */}
+      {DeleteLoading && <Loader />}
     </>
   );
 };

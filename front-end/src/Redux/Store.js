@@ -9,6 +9,7 @@ import { ProductInfoReducer } from "./Reducers/ProductInfoReducer";
 import { GetProductsReducer, ProductReducer } from "./Reducers/Reducers";
 import { ProductCardReducer } from "./Reducers/ProductReducer";
 import { ProductCountReducer } from "./Reducers/ProductCountReducer";
+import { DeleteReducer } from "./Reducers/DeleteReducer";
 
 const rootstore = combineReducers({
   AllData: UserDataReducer,
@@ -20,6 +21,7 @@ const rootstore = combineReducers({
   EditUser: EditUseReducer,
   CardProduct: ProductCardReducer,
   CardCount: ProductCountReducer,
+  DeleteCard: DeleteReducer,
 });
 
 export const store = createStore(rootstore, applyMiddleware(thunk));

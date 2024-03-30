@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 const EmptyCard = () => {
+  const Navigate = useNavigate();
   return (
     <div class="EmptCard h-3/5 md:w-3/4">
       <div class="flex h-12 w-full items-center justify-center bg-white">
@@ -14,7 +17,12 @@ const EmptyCard = () => {
         />
         <h1 class="text-xl font-semibold">Your card is empty?</h1>
         <p class="mt-2 text-sm font-medium">Add items to it now</p>
-        <button class="mt-3 h-11 w-48 rounded bg-blue-500 font-medium text-white hover:bg-blue-700">
+        <button
+          class="mt-3 h-11 w-48 rounded bg-blue-500 font-medium text-white hover:bg-blue-700"
+          onClick={() => {
+            Navigate("/home");
+          }}
+        >
           Shop now
         </button>
       </div>

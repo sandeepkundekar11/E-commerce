@@ -9,6 +9,7 @@ const ProductDetailCard = ({
   percentage,
   ProductDecrease,
   ProductIncrease,
+  DeleteCard,
 }) => {
   return (
     <div class="addedProductsDetails mt-2 flex w-full  justify-normal border bg-white">
@@ -56,7 +57,10 @@ const ProductDetailCard = ({
           <button class="w-36 rounded-lg border p-2 font-semibold hover:bg-blue-500">
             SAVE FOR LATER
           </button>
-          <button class="ml-4 w-32 rounded-lg border p-2 font-semibold hover:bg-red-500">
+          <button
+            class="ml-4 w-32 rounded-lg border p-2 font-semibold hover:bg-red-500"
+            onClick={DeleteCard}
+          >
             REMOVE
           </button>
         </div>

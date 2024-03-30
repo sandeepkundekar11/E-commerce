@@ -74,7 +74,7 @@ const ProductInfo = () => {
                   }}
                 >
                   <img
-                    className="w-12 h-10 group-hover:absolute group-hover:translate-x-60 ease-linear transition-all duration-700"
+                    className="w-12 h-10 group-hover:absolute group-hover:translate-x-60 ease-linear transition-all duration-200"
                     src={AddTocradImg}
                     alt=""
                   />

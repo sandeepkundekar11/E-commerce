@@ -6,20 +6,28 @@ import Tosters from "../../Toaster";
 import Loader from "../Loader";
 import AddAddressComp from "./AddAddressComp";
 import AddressBox from "./AddressBox";
+import { DeleletAddress } from "../../Redux/Actions/DeleteAction";
 const ManageAddress = () => {
   const [showAddAddress, setShowAddress] = useState(false);
   const dispatch = useDispatch();
   const { Success } = Tosters();
+  // for the address
   const { addressData, addressLoading, addressErr } = useSelector(
     (state) => state.UserAddress
   );
+
+  // for user data
   const { userData, userDataLoading, userDataErr } = useSelector(
     (state) => state.AllData
+  );
+  // for delete address
+  const { DeleteInfo, DeleteLoading } = useSelector(
+    (state) => state.DeleteCard
   );
   useEffect(() => {
     let userID = JSON.parse(localStorage.getItem("user"))._id;
     dispatch(GetALLApidata(userID));
-  }, [addressData]);
+  }, [addressData, DeleteInfo]);
 
   return (
     <>
@@ -69,6 +77,11 @@ const ManageAddress = () => {
                     name={ele.name}
                     pincode={ele.pincode}
                     phone_number={ele.phone_number}
+                    DeleteAddress={() => {
+                      let userId = JSON.parse(localStorage.getItem("user"))._id;
+                      dispatch(DeleletAddress(userId, ele._id));
+                      Success("Address deleted successfully");
+                    }}
                   />
                 );
               })
@@ -82,6 +95,11 @@ const ManageAddress = () => {
       {
         // this loader we are adding for Loading all userdata
         userDataLoading && <Loader />
+      }
+
+      {
+        // this loader we are adding for loading the Delete address
+        DeleteLoading && <Loader />
       }
     </>
   );
