@@ -3,8 +3,8 @@ export const Prices = [
   { start: 501, end: 1000 },
   { start: 1001, end: 2000 },
 ];
-// export const LocalHost = "192.168.21.164";
-export const LocalHost="192.168.0.109"
+export const LocalHost = "192.168.21.164";
+// export const LocalHost="192.168.0.109"
 export const Brands = [
   "Apple",
   "Samsung",

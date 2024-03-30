@@ -24,6 +24,7 @@ const ProductCardSchema = new mongoose.Schema({
   brand: String,
   price: Number,
   count: Number,
+  percentage: Number,
 });
 const Userschema = new mongoose.Schema({
   firstname: String,

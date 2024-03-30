@@ -97,11 +97,10 @@ const UpdatePersonalDetail = AsyncHandler(async (req, res) => {
 
     if (user.acknowledged) {
       let userdeatil = await Usermodel.findOne({ _id: req.params.id });
-      if(userdeatil)
-      {
+      if (userdeatil) {
         res.json({
-          message:"User updated successfully"
-        })
+          message: "User updated successfully",
+        });
       }
     }
   }
@@ -186,7 +185,6 @@ const Addaddress = AsyncHandler(async (req, res) => {
   }
 });
 
-
 //  in the following api we are deleting the selected Address
 
 // http://localhost:8000/ecommerce/deleteAddress? id=65fdb9b73233bbad381f1838 &&addressId=65fe7cef6dba152c76a2d344  PUT request
@@ -213,7 +211,7 @@ const DetateAddress = AsyncHandler(async (req, res) => {
 // price: Number,
 // count: Number,
 
-// http://localhost:8000/ecommerce/addCard/65fdb9b73233bbad381f1838     PUT request
+// http://localhost:8000/ecommerce/addCard/65fdb9b73233bbad381f1838     PUT request (userId )
 const AddProductCard = AsyncHandler(async (req, res) => {
   const {
     productImg,
@@ -223,6 +221,7 @@ const AddProductCard = AsyncHandler(async (req, res) => {
     brand,
     price,
     count,
+    percentage,
   } = req.body;
   if (
     !productImg ||
@@ -231,33 +230,58 @@ const AddProductCard = AsyncHandler(async (req, res) => {
     !category ||
     !brand ||
     !price ||
-    !count
+    !count ||
+    !percentage
   ) {
     res.json({
       message: "Enter all the data",
     });
   } else {
-    let user = await Usermodel.updateOne(
-      { _id: req.params.id },
-      {
-        $push: {
-          ProductCard: {
-            productImg,
-            productname,
-            discription,
-            category,
-            brand,
-            price,
-            count,
-          },
-        },
-      }
-    );
+    let ExistProduct = await Usermodel.findOne({
+      _id: req.params.id,
+      "ProductCard.productname": productname,
+    });
 
-    if (user.acknowledged) {
-      res.json({
-        message: "Card added successfully",
-      });
+    if (ExistProduct) {
+      let user1 = await Usermodel.updateOne(
+        {
+          _id: req.params.id,
+          "ProductCard.productname": productname,
+        },
+        {
+          $inc: {
+            "ProductCard.$.count": 1,
+          },
+        }
+      );
+      if (user1.acknowledged) {
+        res.json({
+          message: "Card added successfully",
+        });
+      }
+    } else {
+      let user = await Usermodel.updateOne(
+        { _id: req.params.id },
+        {
+          $push: {
+            ProductCard: {
+              productImg,
+              productname,
+              discription,
+              category,
+              brand,
+              price,
+              count,
+              percentage,
+            },
+          },
+        }
+      );
+      if (user.acknowledged) {
+        res.json({
+          message: "Card added successfully",
+        });
+      }
     }
   }
 });
@@ -280,6 +304,24 @@ const OrderCount = AsyncHandler(async (req, res) => {
   }
 });
 
+// bellow we are Decrementing the orderCount
+// http://localhost:8000/ecommerce/Decount? id=65fdb9b73233bbad381f1838 &&productId=65fea9ecd1ac2d0200d8eb97  PUT request
+const DeCount = AsyncHandler(async (req, res) => {
+  let user = await Usermodel.updateOne(
+    { _id: req.query.id, "ProductCard._id": req.query.productId },
+    {
+      $inc: {
+        "ProductCard.$.count": -1,
+      },
+    }
+  );
+  if (user.acknowledged) {
+    res.json({
+      message: "Product Removed successfully",
+    });
+  }
+});
+
 // bellow we are writing the code to create the DeleteProductCard
 // http://localhost:8000/ecommerce/deleteCard? id=65fdb9b73233bbad381f1838 && productId=65fea9ecd1ac2d0200d8eb97  PUT request
 const DeleteCard = AsyncHandler(async (req, res) => {
@@ -298,11 +340,10 @@ const DeleteCard = AsyncHandler(async (req, res) => {
 });
 
 // Bellow we are write a code to get All details of User
-const UserData=AsyncHandler(async(req,res)=>
-{
-  let user=await Usermodel.findOne({_id:req.params.id})
-  res.json(user)
-})
+const UserData = AsyncHandler(async (req, res) => {
+  let user = await Usermodel.findOne({ _id: req.params.id });
+  res.json(user);
+});
 
 module.exports = {
   Signup,
@@ -316,5 +357,6 @@ module.exports = {
   AddProductCard,
   OrderCount,
   DeleteCard,
-  UserData
+  UserData,
+  DeCount,
 };

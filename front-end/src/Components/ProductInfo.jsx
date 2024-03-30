@@ -6,11 +6,15 @@ import { GetApiProductInfo } from "../Redux/Actions/ProductInfoAction";
 import Loader from "./Loader";
 import Navbar from "./NavBar";
 import ProductCard from "./ProductCard";
+import { PostApiCardToCard } from "../Redux/Actions/ProductAction";
 
 const ProductInfo = () => {
   const Navigate = useNavigate();
   const { ProductInfo, ProductInfoLoading, ProductInfoError } = useSelector(
     (state) => state.ProductInfo
+  );
+  const { ProductCardData, ProductCardLoading, ProductCardErr } = useSelector(
+    (state) => state.CardProduct
   );
 
   const [SelectedTempImg, setSelectedTempImg] = useState(null);
@@ -49,8 +53,31 @@ const ProductInfo = () => {
                 alt=""
               />
               <div className="w-80  h-1/5 flex items-center justify-center ml-4">
-                <button className=" p-4 w-full h-12 rounded-md group hover:relative bg-yellow-500 hover:bg-yellow-400 flex items-center ">
-                  <img className="w-12 h-10 group-hover:absolute group-hover:translate-x-60 ease-linear transition-all duration-700" src={AddTocradImg} alt="" />
+                <button
+                  className=" p-4 w-full h-12 rounded-md group hover:relative bg-yellow-500 hover:bg-yellow-400 flex items-center "
+                  onClick={() => {
+                    let ProductInfo = {
+                      productImg: PageInfo.product?.thumbnail,
+                      productname: PageInfo.product?.title,
+                      discription: PageInfo.product?.description,
+                      category: PageInfo.product?.category,
+                      brand: PageInfo.product?.brand,
+                      price: PageInfo.product?.price,
+                      count: PageInfo.product?.count || 1,
+                      percentage: PageInfo.product?.discountPercentage,
+                    };
+                    let UserId = JSON.parse(localStorage.getItem("user"))._id;
+                    dispatch(PostApiCardToCard(UserId, ProductInfo));
+                    setTimeout(() => {
+                      Navigate("/checkout");
+                    }, 1000);
+                  }}
+                >
+                  <img
+                    className="w-12 h-10 group-hover:absolute group-hover:translate-x-60 ease-linear transition-all duration-700"
+                    src={AddTocradImg}
+                    alt=""
+                  />
                   <p className="text-xl font-bold ml-3">ADD TO CARD</p>
                 </button>
               </div>
@@ -145,6 +172,7 @@ const ProductInfo = () => {
       </div>
 
       {ProductInfoLoading && <Loader />}
+      {ProductCardLoading && <Loader />}
     </>
   );
 };

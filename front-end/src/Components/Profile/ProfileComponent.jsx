@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GetALLApidata } from "../../Redux/Actions/AllDataAction";
-import { EditUserApi, EditUserEmail, EditUserPhone } from "../../Redux/Actions/UserEditAction";
+import {
+  EditUserApi,
+  EditUserEmail,
+  EditUserPhone,
+} from "../../Redux/Actions/UserEditAction";
 import Tosters from "../../Toaster";
 import Loader from "../Loader";
 
@@ -66,8 +70,9 @@ const ProfileComponent = () => {
 
         <div className="nameInputs mt-8 flex">
           <input
-            className={`h-11 w-2/4 bg-blue-50 pl-3 outline-none md:w-2/5 ${!enableuserInfo && "cursor-not-allowed"
-              }`}
+            className={`h-11 w-2/4 bg-blue-50 pl-3 outline-none md:w-2/5 ${
+              !enableuserInfo && "cursor-not-allowed"
+            }`}
             type="text"
             name=""
             id=""
@@ -80,8 +85,9 @@ const ProfileComponent = () => {
             placeholder="First name"
           />
           <input
-            className={`ml-5 h-11 w-2/4 bg-blue-50 pl-3 outline-none md:w-2/5 ${!enableuserInfo && "cursor-not-allowed"
-              }`}
+            className={`ml-5 h-11 w-2/4 bg-blue-50 pl-3 outline-none md:w-2/5 ${
+              !enableuserInfo && "cursor-not-allowed"
+            }`}
             type="text"
             name=""
             id=""
@@ -99,8 +105,9 @@ const ProfileComponent = () => {
           {/* <!-- male --> */}
           <div className="flex items-center">
             <input
-              className={`h-5 w-5 appearance-none rounded-full border-2 p-1 checked:bg-blue-800 ${!enableuserInfo && "cursor-not-allowed"
-                }`}
+              className={`h-5 w-5 appearance-none rounded-full border-2 p-1 checked:bg-blue-800 ${
+                !enableuserInfo && "cursor-not-allowed"
+              }`}
               type="radio"
               name="Gender"
               checked={UserEditInfo.gender === "Male"}
@@ -119,8 +126,9 @@ const ProfileComponent = () => {
           {/* <!-- female --> */}
           <div className="ml-4 flex items-center">
             <input
-              className={`h-5 w-5 appearance-none rounded-full border-2 p-1 checked:bg-blue-800 ${!enableuserInfo && "cursor-not-allowed"
-                }`}
+              className={`h-5 w-5 appearance-none rounded-full border-2 p-1 checked:bg-blue-800 ${
+                !enableuserInfo && "cursor-not-allowed"
+              }`}
               type="radio"
               name="Gender"
               checked={UserEditInfo.gender === "Female"}
@@ -138,7 +146,9 @@ const ProfileComponent = () => {
           </div>
         </div>
       </div>
-      <p className="text-base text-red-600 font-normal mt-3">{UserEditWorning}</p>
+      <p className="text-base text-red-600 font-normal mt-3">
+        {UserEditWorning}
+      </p>
       {/* edit user name and gender */}
       {enableuserInfo && (
         <EditButtons
@@ -146,19 +156,21 @@ const ProfileComponent = () => {
             setEnableUserInfo(false);
           }}
           onEditSave={() => {
-            if (UserEditInfo.gender !== "Male" && UserEditInfo.gender !== "Female") {
+            if (
+              UserEditInfo.gender !== "Male" &&
+              UserEditInfo.gender !== "Female"
+            ) {
               setUserEditWarning("Please add your Gender");
-            } 
-            else if(Object.values(UserEditInfo).some((ele)=>ele.length<2))
-            {
+            } else if (
+              Object.values(UserEditInfo).some((ele) => ele.length < 2)
+            ) {
               setUserEditWarning("Please enter all data");
-            }
-            else {
+            } else {
               setUserEditWarning("");
               let userID = JSON.parse(localStorage.getItem("user"))._id;
               dispatch(EditUserApi(userID, UserEditInfo));
               setEnableUserInfo(false);
-              Success(editUserData?.message || "User Updated successfully");
+              Success("User Updated successfully");
             }
           }}
         />
@@ -181,8 +193,9 @@ const ProfileComponent = () => {
         </div>
         <input
           type="text"
-          className={`mt-5 h-11 w-9/12 bg-blue-50 pl-3 outline-none md:w-2/5 ${!enableuserEmail && "cursor-not-allowed"
-            }`}
+          className={`mt-5 h-11 w-9/12 bg-blue-50 pl-3 outline-none md:w-2/5 ${
+            !enableuserEmail && "cursor-not-allowed"
+          }`}
           name=""
           id=""
           onChange={(e) => {
@@ -201,8 +214,8 @@ const ProfileComponent = () => {
           }}
           onEditSave={() => {
             let userID = JSON.parse(localStorage.getItem("user"))._id;
-            dispatch(EditUserEmail(userID, { "email": UserEmail }));
-            setEnableUserEmail(false)
+            dispatch(EditUserEmail(userID, { email: UserEmail }));
+            setEnableUserEmail(false);
             Success("User email updated successfully");
           }}
         />
@@ -225,8 +238,9 @@ const ProfileComponent = () => {
         </div>
         <input
           type="text"
-          className={`mt-5 h-11 w-9/12 bg-blue-50 pl-3 outline-none md:w-2/5 ${!enablePhone && "cursor-not-allowed"
-            }`}
+          className={`mt-5 h-11 w-9/12 bg-blue-50 pl-3 outline-none md:w-2/5 ${
+            !enablePhone && "cursor-not-allowed"
+          }`}
           placeholder="+911234567892"
           name=""
           value={PhoneNumber}
@@ -245,20 +259,19 @@ const ProfileComponent = () => {
             setEnablephone(false);
           }}
           onEditSave={() => {
-            let regex = /\D/
-            if (regex.test(PhoneNumber.toString())) {
-              setPhoneWarning("Phone number should not contains any characters")
-            }
-            else if(PhoneNumber.length<=9)
-            {
-              setPhoneWarning("phone number should be of 10 digits")
-            }
-            else {
-              setPhoneWarning("")
+            let regex = /\D/;
+            if (regex.test(PhoneNumber?.toString())) {
+              setPhoneWarning(
+                "Phone number should not contains any characters"
+              );
+            } else if (PhoneNumber.length <= 9) {
+              setPhoneWarning("phone number should be of 10 digits");
+            } else {
+              setPhoneWarning("");
               let userID = JSON.parse(localStorage.getItem("user"))._id;
-              dispatch(EditUserPhone(userID, { "phone_no": PhoneNumber }));
-              setEnableUserEmail(false)
-              setEnablephone(false)
+              dispatch(EditUserPhone(userID, { phone_no: PhoneNumber }));
+              setEnableUserEmail(false);
+              setEnablephone(false);
               Success("User phone number updated successfully");
             }
           }}
@@ -309,7 +322,7 @@ const ProfileComponent = () => {
         // this loader we are using for the Loading the edit User Info like firstname, lastname,and gender
         loadingEditUser && <Loader />
       }
-      { }
+      {}
     </>
   );
 };
