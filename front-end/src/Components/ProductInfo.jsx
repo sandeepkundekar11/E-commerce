@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import AddTocradImg from "../Images/Shoping_card.png";
+import { PostApiCardToCard } from "../Redux/Actions/ProductAction";
 import { GetApiProductInfo } from "../Redux/Actions/ProductInfoAction";
 import Loader from "./Loader";
 import Navbar from "./NavBar";
 import ProductCard from "./ProductCard";
-import { PostApiCardToCard } from "../Redux/Actions/ProductAction";
 
 const ProductInfo = () => {
   const Navigate = useNavigate();
@@ -67,14 +67,11 @@ const ProductInfo = () => {
                       percentage: PageInfo.product?.discountPercentage,
                     };
                     let UserId = JSON.parse(localStorage.getItem("user"))._id;
-                    dispatch(PostApiCardToCard(UserId, ProductInfo));
-                    setTimeout(() => {
-                      Navigate("/checkout");
-                    }, 1000);
+                    dispatch(PostApiCardToCard(UserId, ProductInfo,Navigate));
                   }}
                 >
                   <img
-                    className="w-12 h-10 group-hover:absolute group-hover:translate-x-60 ease-linear transition-all duration-200"
+                    className="w-12 h-10 group-hover:absolute group-hover:translate-x-60 ease-linear transition-all duration-700"
                     src={AddTocradImg}
                     alt=""
                   />

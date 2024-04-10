@@ -99,7 +99,7 @@ const Login = () => {
                         onClick={Loginfun}
                         className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Login</button>
                      <p className="text-lg text-red-500 mt-1 ">{error}</p>
-                    <p className="mt-2">Don't have an account <NavLink className="text-blue-600">SignUp</NavLink></p>
+                    <p className="mt-2">Don't have an account <NavLink className="text-blue-600" to="/">SignUp</NavLink></p>
                 </div>
             </div>
         </div>

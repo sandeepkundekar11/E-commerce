@@ -1,5 +1,7 @@
 const AsyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
+const stripe = require("stripe")
+(process.env.STRIP_KEY)
 const bcrypt = require("bcrypt");
 const { Usermodel, ProductsModel } = require("../model/connection");
 // SigupApi
@@ -345,6 +347,35 @@ const UserData = AsyncHandler(async (req, res) => {
   res.json(user);
 });
 
+
+// creating the payment getway
+const Payment = AsyncHandler(async (req, res) => {
+  const { price, email,userId } = req.body
+  return stripe.customers.create({
+    email: email
+  }).then((customer) => {
+     return stripe.invoiceItems.create({
+      customer: customer.id, // set the customer id
+      amount: price*100,
+      currency: 'usd',
+    })
+
+  }).then(async (result)=>
+  {
+    if(result)
+    {
+      let user= await Usermodel.updateOne({_id:userId},{
+        $set:{
+          "ProductCard":[]
+        }
+      })
+    }
+    res.json({message:"payment successful"})
+  }).catch((err)=>
+  {
+    console.log(err)
+  })
+})
 module.exports = {
   Signup,
   Login,
@@ -359,4 +390,5 @@ module.exports = {
   DeleteCard,
   UserData,
   DeCount,
+  Payment
 };

@@ -3,8 +3,8 @@ export const Prices = [
   { start: 501, end: 1000 },
   { start: 1001, end: 2000 },
 ];
-export const LocalHost = "192.168.21.164";
-// export const LocalHost="192.168.0.109"
+// export const LocalHost = "192.168.21.164";
+export const LocalHost="192.168.0.113"
 export const Brands = [
   "Apple",
   "Samsung",
@@ -107,3 +107,4 @@ export const Categories = [
   "motorcycle",
   "lighting",
 ];
+export const REACT_STRIP_KEY="pk_test_51P0Qg3SGZ9U6V8TCsYkYnFrQJkG80Z5ahdCEQfAvmxEJOUPayrTaj7nJFYovg5jDeKRUocXbfWSYN7eCfmVnzrL900J5DdY0pw"

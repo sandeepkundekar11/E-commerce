@@ -1,27 +1,37 @@
-import { useDispatch, useSelector } from "react-redux";
-import Navbar from "../NavBar";
-import EmptyCard from "./EmptyCard";
-import ProductDetailCard from "./ProductDetailCard";
-import ProductPriceCard from "./ProductPriceCard";
-import ProductSendAddress from "./ProductSendAddress";
-import Loader from "../Loader";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import StripeCheckout from "react-stripe-checkout";
 import { GetALLApidata } from "../../Redux/Actions/AllDataAction";
+import { DeleletProduct } from "../../Redux/Actions/DeleteAction";
+import { ApiPayPayment } from "../../Redux/Actions/PaymentAction";
 import {
   DecrementProductCount,
   IncreamentProductCount,
 } from "../../Redux/Actions/ProductCountActions";
 import Tosters from "../../Toaster";
-import { DeleletProduct } from "../../Redux/Actions/DeleteAction";
-
+import { REACT_STRIP_KEY } from "../../constants";
+import Loader from "../Loader";
+import Navbar from "../NavBar";
+import SuccessfulPayment from "../SucesfullPayment";
+import EmptyCard from "./EmptyCard";
+import ProductDetailCard from "./ProductDetailCard";
+import ProductPriceCard from "./ProductPriceCard";
+import ProductSendAddress from "./ProductSendAddress";
 const ProductsCheckoutComp = () => {
   const dispatch = useDispatch();
+  const { Payment, paymentLoading } = useSelector((state) => state.paymentData)
   const { ProductDataCount, ProductDataLoading } = useSelector(
     (state) => state.CardCount
   );
-
+  const [paymentSucccessfull, setPaymentSucessfull] = useState(false)
+  const [PaymentPrice, setPaymentPrice] = useState(0)
+  const PaymentSuccessfull = (price) => {
+    setPaymentSucessfull(true)
+    setPaymentPrice(price)
+  }
   // for delete address
   const { DeleteInfo, DeleteLoading } = useSelector(
+    /* The `paymentData` in the root store is being handled by the `PaymentReducer`. This reducer is responsible for managing the state related to payment information within the application. It likely handles actions such as adding, updating, or deleting payment information for users during the checkout process or any other payment-related functionalities in the application. */
     (state) => state.DeleteCard
   );
   const [OriginalPrice, setOriginalPrice] = useState(null);
@@ -33,7 +43,8 @@ const ProductsCheckoutComp = () => {
     // getting all user data
     let userId = JSON.parse(localStorage.getItem("user"))._id;
     dispatch(GetALLApidata(userId));
-  }, [dispatch, ProductDataCount, DeleteInfo]);
+    console.log(Payment)
+  }, [dispatch, ProductDataCount, DeleteInfo, Payment]);
 
   useEffect(() => {
     // setting the total original price
@@ -134,6 +145,16 @@ const ProductsCheckoutComp = () => {
                     />
                   );
                 })}
+
+                <div className="w-full h-20 justify-end  flex items-center bg-white p-4 sticky bottom-0 border">
+                  <StripeCheckout stripeKey={REACT_STRIP_KEY}  token={()=>
+                  {
+                    dispatch(ApiPayPayment(ProductTotalPrice, userData?.email, PaymentSuccessfull))
+                  }} >
+                  <button onClick={() => {
+                  }} className="h-14 rounded-md  w-44 bg-blue-700 text-white text-base"> ({ProductTotalPrice}₹) Checkout</button>
+                  </StripeCheckout>
+                </div>
               </div>
             </div>
 
@@ -147,6 +168,8 @@ const ProductsCheckoutComp = () => {
                 key={Date.now()}
               />
             </div>
+
+
           </div>
         ) : (
           <EmptyCard />
@@ -161,6 +184,15 @@ const ProductsCheckoutComp = () => {
 
       {/* this loader we are using to load the Delete Product card */}
       {DeleteLoading && <Loader />}
+
+      {/*Payment Loader */}
+      {paymentLoading && <Loader />}
+
+      {
+        paymentSucccessfull && <SuccessfulPayment price={PaymentPrice} onOutsideClick={() => {
+          setPaymentSucessfull(false)
+        }} />
+      }
     </>
   );
 };

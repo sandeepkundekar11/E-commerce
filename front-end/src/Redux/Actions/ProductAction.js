@@ -23,7 +23,7 @@ const addtoCardError = (err) => {
   };
 };
 
-export const PostApiCardToCard = (userId, product) => {
+export const PostApiCardToCard = (userId, product,navigate) => {
   return async (dispacth) => {
     try {
       dispacth(addtoCardRequest());
@@ -41,6 +41,7 @@ export const PostApiCardToCard = (userId, product) => {
       let data = await responce.json();
       if (data) {
         dispacth(addtoCard(data));
+        navigate("/checkout")
       }
     } catch (error) {
       dispacth(addtoCardError(error));

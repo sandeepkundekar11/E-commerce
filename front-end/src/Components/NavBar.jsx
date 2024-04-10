@@ -18,7 +18,7 @@ const Navbar = ({ Logout }) => {
   const [SearchedProduct, setSearchedProduct] = useState("");
   useEffect(() => {
     dispatch(GetApiProducts());
-    let userId = JSON.parse(localStorage.getItem("user"))._id;
+    let userId = JSON?.parse(localStorage.getItem("user"))?._id;
     dispatch(GetALLApidata(userId));
   }, []);
   return (

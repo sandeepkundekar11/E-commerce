@@ -40,7 +40,7 @@ const Home = () => {
 
 
   useEffect(() => {
-    let auth = JSON.parse(localStorage.getItem("auth"))
+    let auth = JSON?.parse(localStorage.getItem("auth"))
     if (!auth) {
       Navigate("/")
     }
