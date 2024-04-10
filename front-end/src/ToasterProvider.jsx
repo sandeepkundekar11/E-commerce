@@ -8,8 +8,8 @@ const TosterProvider = ({ children }) => {
     <div className="w-full h-full  tosterContainer">
       {children}
       <ToastContainer
-        position="top-center"
-        autoClose={4000}
+        position="bottom-center"
+        autoClose={2500}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

@@ -15,7 +15,10 @@ const {
   DeleteCard,
   UserData,
   DeCount,
+  Payment,
 } = require("../Controller/UserController");
+
+const  checkAuth=require("../Controller/auth")
 Route.get("/allproducts", GetProducts);
 Route.post("/signup", Signup);
 Route.post("/login", Login);
@@ -30,4 +33,5 @@ Route.put("/count", OrderCount);
 Route.put("/Decount", DeCount);
 Route.put("/deleteCard", DeleteCard);
 Route.get("/userInfo/:id", UserData);
+Route.post("/payment",Payment)
 module.exports = Route;

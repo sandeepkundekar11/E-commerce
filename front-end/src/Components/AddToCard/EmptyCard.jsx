@@ -11,7 +11,7 @@ const EmptyCard = () => {
       </div>
       <div class="mt-2 flex min-h-96 w-full flex-col items-center justify-center bg-white">
         <img
-          class="h-64 w-80"
+          class="h-64 w-80 overflow-hidden"
           src="https://rukminim2.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90"
           alt=""
         />

@@ -5,7 +5,7 @@ const ProductPriceCard = ({
   TotalProductPrice,
 }) => {
   return (
-    <div class="PriceCard  w-full bg-white md:ml-7 md:w-96">
+    <div class="PriceCard sticky top-14  w-full bg-white md:ml-7 md:w-96">
       <div class="PriceHead flex h-12 w-full items-center justify-start border p-2 text-lg font-semibold text-gray-600">
         PRICE DETAILS
       </div>

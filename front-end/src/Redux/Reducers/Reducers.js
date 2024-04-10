@@ -1,13 +1,13 @@
 import {
-    BRAND_FILTER,
-    CATEGORY_FILTER,
-    CLEAR_ALL_FILTER,
-    CLEAR_FILTER,
-    GETALL_PRODUCTS,
-    PRICE_FILTER,
-    PRODUCTS,
-    PRODUCTS_ERROR,
-    PRODUCTS_REQUEST,
+  BRAND_FILTER,
+  CATEGORY_FILTER,
+  CLEAR_ALL_FILTER,
+  CLEAR_FILTER,
+  GETALL_PRODUCTS,
+  PRICE_FILTER,
+  PRODUCTS,
+  PRODUCTS_ERROR,
+  PRODUCTS_REQUEST,
 } from "../Actions/Actions";
 
 const Product = {
@@ -27,16 +27,16 @@ export const ProductReducer = (state = InitilaProducts, action) => {
     case GETALL_PRODUCTS:
       return {
         ...state,
-        AllProducts: action.payload?.filter((ele) => {
+        AllProducts: action?.payload?.filter((ele) => {
           let category =
-            state.CategoryFilter.length === 0 ||
-            state.CategoryFilter.includes(ele.category);
+            state?.CategoryFilter.length === 0 ||
+            state?.CategoryFilter.includes(ele.category);
           let brand =
-            state.BrandFilter.length === 0 ||
-            state.BrandFilter.includes(ele.brand);
+            state?.BrandFilter.length === 0 ||
+            state?.BrandFilter.includes(ele.brand);
           let price =
-            state.PriceFilter.length === 0 ||
-            state.PriceFilter.some((price) => {
+            state?.PriceFilter.length === 0 ||
+            state?.PriceFilter.some((price) => {
               return ele?.price >= price.start && ele?.price <= price.end;
             });
           return category && brand && price;
@@ -46,8 +46,8 @@ export const ProductReducer = (state = InitilaProducts, action) => {
     case CATEGORY_FILTER:
       return {
         ...state,
-        CategoryFilter: state.CategoryFilter?.includes(action.payload)
-          ? state.CategoryFilter?.filter((ele) => {
+        CategoryFilter: state?.CategoryFilter?.includes(action.payload)
+          ? state?.CategoryFilter?.filter((ele) => {
             return ele !== action.payload;
           })
           : [...state.CategoryFilter, action.payload],
@@ -100,7 +100,7 @@ export const GetProductsReducer = (state = Product, action) => {
     case PRODUCTS:
       return {
         ...state,
-        E_Products: action.payload,
+        E_Products: action?.payload,
         ProductLoading: false,
       }
 
@@ -114,7 +114,7 @@ export const GetProductsReducer = (state = Product, action) => {
       return {
         ...state,
         ProductLoading: false,
-        ProductErr: action.payload
+        ProductErr: action?.payload
       }
 
     default:

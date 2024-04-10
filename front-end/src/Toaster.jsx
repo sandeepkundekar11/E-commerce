@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 const Tosters = () => {
   const Success = (message) =>
     toast.info(message, {
-      position: "bottom-left",
+      position: "bottom-center",
       hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
@@ -11,7 +11,7 @@ const Tosters = () => {
       theme: "dark",
       className: "z-40 Toaster  rounded-md",
     });
-
+   
   return { Success };
 };
 

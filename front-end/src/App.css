@@ -115,3 +115,29 @@
 .Toaster {
   width: 450px;
 }
+
+/* payment Component */
+
+.paymentBox
+{
+  animation-name: payment;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes payment {
+  from
+  {
+    transform: scale(1.05);
+    overflow: hidden;
+  }
+  to
+  {
+    ransform: scale(1);
+  }
+}
+.PaymentContainer
+{
+  background-color: rgba(207, 207, 207, 0.803);
+}
